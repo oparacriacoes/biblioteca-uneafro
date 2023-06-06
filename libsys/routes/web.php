@@ -25,14 +25,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/book', [BookController::class, 'index'])->name('book.index');
-    Route::get('/loan', [LoanController::class, 'index'])->name('loan.index');
-    Route::get('/member', [MemberController::class, 'index'])->name('member.index');
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
-});
+    Route::resource('book', BookController::class);
+    Route::resource('loan', LoanController::class);
+    Route::resource('member', MemberController::class);
+    Route::resource('user', UserController::class);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/user_edit', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/user_edit', [UserController::class, 'update'])->name('user.update');
     Route::put('/user_password', [UserController::class, 'password'])->name('user.password');
 });
