@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()->orderBy('name')->get();
+        $users = User::query()
+            ->where('id', '!=', 1)
+            ->where('deleted', '=', 0)
+            ->orderBy('name')
+            ->orderBy('last_name')
+            ->get();
 
         return view('user.index')->with('users', $users);
     }
@@ -26,15 +32,25 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        User::create([
+            'name' => $validatedData['name'],
+            'last_name' => $validatedData['last_name'],
+            'cpf' => $validatedData['cpf'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'Usuário adicionado com sucesso.');
     }
 
     /**
@@ -48,19 +64,32 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('user.edit');
+        $user = User::findOrFail($id);
+
+        return view('user.edit')->with('user', $user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProfileRequest $request, string $id)
     {
-        auth()->user()->update($request->all());
+        $request->validated();
 
-        return back()->withStatus(__('Profile successfully updated.'));
+        $user = User::findOrFail($id);
+
+        $user->name = $request->input('name');
+        $user->last_name = $request->input('last_name');
+        $user->cpf = $request->input('cpf');
+        $user->email = $request->input('email');
+
+        $user->save();
+
+        return redirect()
+            ->route('user.edit', ['user' => auth()->user()])
+            ->with('success', 'Usuário editado com sucesso!');
     }
 
     /**
@@ -68,7 +97,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'Usuário excluído com sucesso!');
     }
 
     /**
@@ -79,8 +111,14 @@ class UserController extends Controller
      */
     public function password(PasswordRequest $request)
     {
-        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+        $request->validated();
 
-        return back()->withPasswordStatus(__('Password successfully updated.'));
+        $user = User::findOrFail(auth()->user()->id);
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return redirect()
+            ->route('user.edit', ['user' => auth()->user()])
+            ->with('password_status', 'Senha atualizada com sucesso!');
     }
 }
