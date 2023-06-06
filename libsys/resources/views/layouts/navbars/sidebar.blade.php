@@ -60,8 +60,8 @@
                                 <p>{{ __('Controle de Usuários') }}</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug == 'user_edit') class="active" @endif>
-                            <a href="{{ route('user.edit')  }}">
+                        <li @if ($pageSlug == 'edit_user') class="active" @endif>
+                            <a href="{{ route('user.edit', ['user' => auth()->user()]) }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>{{ __('Perfil') }}</p>
                             </a>
