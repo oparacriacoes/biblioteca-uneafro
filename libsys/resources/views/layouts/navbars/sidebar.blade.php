@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li @if ($pageSlug == 'edit_user') class="active" @endif>
-                            <a href="{{ route('user.edit', ['user' => auth()->user()->id]) }}">
+                            <a href="{{ route('user.edit', ['user' => serialize(auth()->user()->id)]) }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>Perfil</p>
                             </a>

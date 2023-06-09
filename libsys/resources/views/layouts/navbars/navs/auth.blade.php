@@ -56,7 +56,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-navbar">
                         <li class="nav-link">
-                            <a href="{{ route('user.edit', ['user' => auth()->user()->id]) }}" class="nav-item dropdown-item">Perfil</a>
+                            <a href="{{ route('user.edit', ['user' => serialize(auth()->user()->id)]) }}" class="nav-item dropdown-item">Perfil</a>
                         </li>
                         <li class="nav-link">
                             <a href="#" class="nav-item dropdown-item">Configurações</a>

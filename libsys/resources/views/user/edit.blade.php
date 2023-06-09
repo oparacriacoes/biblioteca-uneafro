@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h5 class="title">Editar Usuário</h5>
                 </div>
-                <form method="post" action="{{ route('user.update', ['user' => auth()->user()]) }}" autocomplete="off">
+                <form method="post" action="{{ route('user.update', ['user' => serialize(auth()->user()->id)]) }}" autocomplete="off">
                     <div class="card-body">
                         @csrf
                         @method('put')
