@@ -12,8 +12,8 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the users
-     *
-     * @return \Illuminate\View\View
+     * @access public
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -24,31 +24,16 @@ class UserController extends Controller
             ->orderBy('last_name')
             ->get();
         
-        $arrayHeader = ['Usuário', 'Email', 'CPF', 'Excluir'];
-
-        $arrayData = [];
-        foreach ($users as $user) {
-            $cpf = substr($user->cpf, 0, 3) . '.' . substr($user->cpf, 3, 3) . '.' . substr($user->cpf, 6, 3)
-                . '-' . substr($user->cpf, 9);
-            $arrayData[] = [
-                'user' => $user->name . ' ' . $user->last_name,
-                'email' => $user->email,
-                'cpf' => $cpf,
-                'delete' => [
-                    'id' => $user->id,
-                    'title' => 'Excluir Usuário',
-                    'target' => '#delete_user_' . $user->id,
-                    'icon' => 'text-primary fas fa-trash-alt',
-                    'dataToggle' => 'modal'
-                ]
-            ];
-        }
+        $arrayHeader = $this->getArrayHeader();
+        $arrayData = $this->getArrayData($users);
 
         return view('user.index')->with(['arrayHeader' => $arrayHeader, 'arrayData' => $arrayData]);
     }
 
     /**
      * Show the form for creating a new resource.
+     * @access public
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -57,6 +42,9 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @access public
+     * @param UserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
@@ -75,6 +63,8 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     * @access public
+     * @param string $id
      */
     public function show(string $id)
     {
@@ -83,22 +73,29 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @access public
+     * @param string $id serialized id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(unserialize($id));
 
         return view('user.edit')->with('user', $user);
     }
 
     /**
      * Update the specified resource in storage.
+     * @access public
+     * @param ProfileRequest $request
+     * @param string $id serialized id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProfileRequest $request, string $id)
     {
         $request->validated();
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(unserialize($id));
 
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
@@ -108,12 +105,15 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('user.edit', ['user' => auth()->user()])
+            ->route('user.edit', ['user' => serialize(auth()->user()->id)])
             ->with('success', 'Usuário editado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
+     * @access public
+     * @param string $id serialized id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {
@@ -125,7 +125,7 @@ class UserController extends Controller
 
     /**
      * Change the password
-     *
+     * @access public
      * @param  \App\Http\Requests\PasswordRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -138,7 +138,57 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('user.edit', ['user' => auth()->user()])
+            ->route('user.edit', ['user' => serialize(auth()->user()->id)])
             ->with('password_status', 'Senha atualizada com sucesso!');
+    }
+
+    /**
+     * Method to get table header
+     * @access private
+     * @return array
+     */
+    private function getArrayHeader()
+    {
+        return ['Usuário', 'Email', 'CPF', 'Excluir'];
+    }
+
+    /**
+     * Method to get table data
+     * @access private
+     * @param Illuminate\Database\Eloquent\Collection $users
+     * @return array $arrayData
+     */
+    private function getArrayData($users)
+    {
+        $arrayData = [];
+        foreach ($users as $user) {
+            $cpf = substr($user->cpf, 0, 3) . '.' . substr($user->cpf, 3, 3) . '.' . substr($user->cpf, 6, 3)
+                . '-' . substr($user->cpf, 9);
+            $arrayData[] = [
+                'user' => $user->name . ' ' . $user->last_name,
+                'email' => $user->email,
+                'cpf' => $cpf,
+                'delete' => $this->getIconDelete($user->id)
+            ];
+        }
+
+        return $arrayData;
+    }
+
+    /**
+     * Method to get the delete icon
+     * @access private
+     * @param string $id
+     * @return array
+     */
+    private function getIconDelete(string $id)
+    {
+        return [
+            'id' => $id,
+            'title' => 'Excluir Usuário',
+            'target' => '#delete_user_' . $id,
+            'icon' => 'text-primary fas fa-trash-alt',
+            'dataToggle' => 'modal'
+        ];
     }
 }
