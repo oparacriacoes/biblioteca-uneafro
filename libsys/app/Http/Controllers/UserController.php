@@ -23,8 +23,28 @@ class UserController extends Controller
             ->orderBy('name')
             ->orderBy('last_name')
             ->get();
+        
+        $arrayHeader = ['Usuário', 'Email', 'CPF', 'Excluir'];
 
-        return view('user.index')->with('users', $users);
+        $arrayData = [];
+        foreach ($users as $user) {
+            $cpf = substr($user->cpf, 0, 3) . '.' . substr($user->cpf, 3, 3) . '.' . substr($user->cpf, 6, 3)
+                . '-' . substr($user->cpf, 9);
+            $arrayData[] = [
+                'user' => $user->name . ' ' . $user->last_name,
+                'email' => $user->email,
+                'cpf' => $cpf,
+                'delete' => [
+                    'id' => $user->id,
+                    'title' => 'Excluir Usuário',
+                    'target' => '#delete_user_' . $user->id,
+                    'icon' => 'text-primary fas fa-trash-alt',
+                    'dataToggle' => 'modal'
+                ]
+            ];
+        }
+
+        return view('user.index')->with(['arrayHeader' => $arrayHeader, 'arrayData' => $arrayData]);
     }
 
     /**
@@ -64,7 +84,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
         $user = User::findOrFail($id);
 
@@ -97,7 +117,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(unserialize($id));
         $user->delete();
 
         return redirect()->route('user.index')->with('success', 'Usuário excluído com sucesso!');
