@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Controle de Empréstimos'), 'pageSlug' => 'loan'])
+@extends('layouts.app', ['page' => __('Controle de Empréstimos'), 'pageSlug' => 'loan_control'])
 
 @section('content')
 <div class="row">
