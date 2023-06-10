@@ -21,7 +21,7 @@
                                 'name' => 'name',
                                 'oldValue' => auth()->user()->name,
                                 'maxLength' => 20,
-                                'icon' => 'tim-icons icon-single-02'
+                                'icon' => 'fa-regular fa-user'
                             ]
                         )
 
@@ -32,18 +32,7 @@
                                 'name' => 'last_name',
                                 'oldValue' => auth()->user()->last_name,
                                 'maxLength' => 20,
-                                'icon' => 'tim-icons icon-single-02'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'label' => 'CPF',
-                                'name' => 'cpf',
-                                'oldValue' => auth()->user()->cpf,
-                                'maxLength' => 11,
-                                'icon' => 'tim-icons icon-badge'
+                                'icon' => 'fa-regular fa-user'
                             ]
                         )
 
@@ -54,7 +43,18 @@
                                 'name' => 'email',
                                 'oldValue' => auth()->user()->email,
                                 'maxLength' => 50,
-                                'icon' => 'tim-icons icon-email-85'
+                                'icon' => 'fa-regular fa-envelope'
+                            ]
+                        )
+
+                        @include(
+                            'components.input',
+                            [
+                                'label' => 'CPF',
+                                'name' => 'cpf',
+                                'oldValue' => auth()->user()->cpf,
+                                'maxLength' => 11,
+                                'icon' => 'fa-regular fa-address-card'
                             ]
                         )
                     </div>
@@ -81,7 +81,7 @@
                                 'type' => 'password',
                                 'label' => 'Senha Atual',
                                 'name' => 'old_password',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
 
@@ -91,7 +91,7 @@
                                 'type' => 'password',
                                 'label' => 'Nova Senha',
                                 'name' => 'password',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
 
@@ -101,7 +101,7 @@
                                 'type' => 'password',
                                 'label' => 'Confirmar Nova Senha',
                                 'name' => 'password_confirmation',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
                     </div>

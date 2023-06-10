@@ -11,7 +11,7 @@
                         <h4 class="card-title">Controle de Usuários</h4>
                     </div>
                     <div class="col-8 text-right">
-                        <a href=" {{ route('user.create') }} " class="btn btn-sm btn-primary">Adicionar Usuário</a>
+                        <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Adicionar Usuário</a>
                     </div>
                 </div>
             </div>

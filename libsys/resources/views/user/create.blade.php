@@ -24,7 +24,7 @@
                                 'placeholder' => 'Nome',
                                 'name' => 'name',
                                 'maxLength' => 20,
-                                'icon' => 'tim-icons icon-single-02'
+                                'icon' => 'fa-regular fa-user'
                             ]
                         )
 
@@ -34,17 +34,7 @@
                                 'placeholder' => 'Sobrenome',
                                 'name' => 'last_name',
                                 'maxLength' => 20,
-                                'icon' => 'tim-icons icon-single-02'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'CPF',
-                                'name' => 'cpf',
-                                'maxLength' => 11,
-                                'icon' => 'tim-icons icon-badge'
+                                'icon' => 'fa-regular fa-user'
                             ]
                         )
 
@@ -54,7 +44,17 @@
                                 'placeholder' => 'Email',
                                 'name' => 'email',
                                 'maxLength' => 50,
-                                'icon' => 'tim-icons icon-email-85'
+                                'icon' => 'fa-regular fa-envelope'
+                            ]
+                        )
+
+                        @include(
+                            'components.input',
+                            [
+                                'placeholder' => 'CPF',
+                                'name' => 'cpf',
+                                'maxLength' => 11,
+                                'icon' => 'fa-regular fa-address-card'
                             ]
                         )
 
@@ -64,7 +64,7 @@
                                 'type' => 'password',
                                 'placeholder' => 'Senha',
                                 'name' => 'password',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
 
@@ -74,7 +74,7 @@
                                 'type' => 'password',
                                 'placeholder' => 'Confirmar Senha',
                                 'name' => 'password_confirmation',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
                     </div>
