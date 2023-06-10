@@ -19,7 +19,6 @@ class UserController extends Controller
     {
         $users = User::query()
             ->where('id', '!=', 1)
-            ->where('deleted', '=', 0)
             ->orderBy('name')
             ->orderBy('last_name')
             ->get();
@@ -53,9 +52,9 @@ class UserController extends Controller
         User::create([
             'name' => $validatedData['name'],
             'last_name' => $validatedData['last_name'],
-            'cpf' => $validatedData['cpf'],
             'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
+            'cpf' => $validatedData['cpf'],
+            'password' => Hash::make($validatedData['password'])
         ]);
 
         return redirect()->route('user.index')->with('success', 'Usuário adicionado com sucesso.');
@@ -99,8 +98,8 @@ class UserController extends Controller
 
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
-        $user->cpf = $request->input('cpf');
         $user->email = $request->input('email');
+        $user->cpf = $request->input('cpf');
 
         $user->save();
 
@@ -162,33 +161,14 @@ class UserController extends Controller
     {
         $arrayData = [];
         foreach ($users as $user) {
-            $cpf = substr($user->cpf, 0, 3) . '.' . substr($user->cpf, 3, 3) . '.' . substr($user->cpf, 6, 3)
-                . '-' . substr($user->cpf, 9);
             $arrayData[] = [
                 'user' => $user->name . ' ' . $user->last_name,
                 'email' => $user->email,
-                'cpf' => $cpf,
+                'cpf' => $this->formatCpf($user->cpf),
                 'delete' => $this->getIconDelete($user->id)
             ];
         }
 
         return $arrayData;
-    }
-
-    /**
-     * Method to get the delete icon
-     * @access private
-     * @param string $id
-     * @return array
-     */
-    private function getIconDelete(string $id)
-    {
-        return [
-            'id' => $id,
-            'title' => 'Excluir Usuário',
-            'target' => '#delete_user_' . $id,
-            'icon' => 'text-primary fas fa-trash-alt',
-            'dataToggle' => 'modal'
-        ];
     }
 }
