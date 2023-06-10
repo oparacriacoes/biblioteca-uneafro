@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Loan extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    
     /**
      * The table associated with the model.
      *
