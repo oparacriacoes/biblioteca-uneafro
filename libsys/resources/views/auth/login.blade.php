@@ -21,7 +21,7 @@
                                 'placeholder' => 'Email',
                                 'name' => 'email',
                                 'maxLength' => 50,
-                                'icon' => 'tim-icons icon-email-85'
+                                'icon' => 'fa-regular fa-envelope'
                             ]
                         )
 
@@ -31,7 +31,7 @@
                                 'type' => 'password',
                                 'placeholder' => 'Senha',
                                 'name' => 'password',
-                                'icon' => 'tim-icons icon-lock-circle'
+                                'icon' => 'fa-solid fa-lock'
                             ]
                         )
                 </div>

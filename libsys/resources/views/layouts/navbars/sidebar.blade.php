@@ -12,13 +12,13 @@
         <ul class="nav">
             <li @if ($pageSlug == 'dashboard') class="active " @endif>
                 <a href="{{ route('dashboard') }}">
-                    <i class="tim-icons icon-chart-pie-36"></i>
+                    <i class="fa-solid fa-chart-pie"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
             <li>
                 <a data-toggle="collapse" href="#loan" aria-expanded="{{ $loan }}">
-                    <i class="tim-icons icon-notes"></i>
+                    <i class="fa-solid fa-list-check"></i>
                     <span class="nav-link-text">Empréstimos</span>
                     <b class="caret mt-1"></b>
                 </a>
@@ -26,13 +26,13 @@
                     <ul class="nav pl-4">
                         <li @if ($pageSlug == 'loan_control') class="active" @endif>
                             <a href="{{ route('loan.index') }}">
-                                <i class="tim-icons icon-single-02"></i>
-                                <p>Controle de Empréstimos</p>
+                                <i class="fa-solid fa-rotate-left"></i>
+                                <p>Devolução</p>
                             </a>
                         </li>
                         <li @if ($pageSlug == 'make_loan') class="active" @endif>
                             <a href="{{ route('loan.index') }}">
-                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <i class="fa-regular fa-handshake"></i>
                                 <p>Realizar Empréstimo</p>
                             </a>
                         </li>
@@ -53,7 +53,7 @@
             </li>
             <li>
                 <a data-toggle="collapse" href="#users" aria-expanded="{{ $user }}">
-                    <i class="fab fa-laravel" ></i>
+                    <i class="fa-solid fa-circle-user"></i>
                     <span class="nav-link-text">Usuário</span>
                     <b class="caret mt-1"></b>
                 </a>
@@ -61,13 +61,13 @@
                     <ul class="nav pl-4">
                         <li @if ($pageSlug == 'user_control' || $pageSlug == 'create_user') class="active" @endif>
                             <a href="{{ route('user.index') }}">
-                                <i class="tim-icons icon-single-02"></i>
+                                <i class="fa-solid fa-clipboard-user"></i>
                                 <p>Controle de Usuários</p>
                             </a>
                         </li>
                         <li @if ($pageSlug == 'edit_user') class="active" @endif>
                             <a href="{{ route('user.edit', ['user' => serialize(auth()->user()->id)]) }}">
-                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <i class="fa-solid fa-user-pen"></i>
                                 <p>Perfil</p>
                             </a>
                         </li>
@@ -76,7 +76,7 @@
             </li>
             <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-users"></i>
+                    <i class="fa-solid fa-right-from-bracket"></i>
                     <p>Sair</p>
                 </a>
             </li>
