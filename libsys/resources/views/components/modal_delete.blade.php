@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="form" method="post" action="{{ route('user.destroy', ['user' => serialize($userId)]) }}">
+            <form class="form" method="post" action="{{ $route }}">
                 @csrf
                 @method('delete')
                 <div class="modal-body">
