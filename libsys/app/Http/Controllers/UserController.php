@@ -57,7 +57,7 @@ class UserController extends Controller
             'password' => Hash::make($validatedData['password'])
         ]);
 
-        return redirect()->route('user.index')->with('success', 'Usuário adicionado com sucesso.');
+        return redirect()->route('user.index')->with('success', 'Usuário adicionado com sucesso!');
     }
 
     /**
@@ -165,7 +165,7 @@ class UserController extends Controller
                 'user' => $user->name . ' ' . $user->last_name,
                 'email' => $user->email,
                 'cpf' => $this->formatCpf($user->cpf),
-                'delete' => $this->getIconDelete($user->id)
+                'delete' => $this->getIconDelete('user', $user->id, 'Excluir Usuário')
             ];
         }
 
