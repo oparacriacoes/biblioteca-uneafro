@@ -15,4 +15,11 @@ class Member extends Model
      * @var string
      */
     protected $table = 'member';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['full_name', 'id_member_type', 'email', 'phone', 'cpf', 'id_user'];
 }

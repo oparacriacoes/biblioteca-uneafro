@@ -17,4 +17,11 @@ class MemberType extends Model
      * @var string
      */
     protected $table = 'member_type';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['type'];
 }
