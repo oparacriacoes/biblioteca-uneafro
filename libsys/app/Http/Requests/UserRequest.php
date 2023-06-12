@@ -29,9 +29,9 @@ class UserRequest extends FormRequest
             'name' => ['required', 'string', 'max:20'],
             'last_name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:member,email',
-                Rule::unique((new User)->getTable())->ignore(auth()->id())],
+                Rule::unique((new User())->getTable())->ignore(auth()->id())],
             'cpf' => ['required', 'integer', 'digits:11', 'unique:member,cpf',
-                Rule::unique((new User)->getTable())->ignore(auth()->id())],
+                Rule::unique((new User())->getTable())->ignore(auth()->id())],
             'password' => ['required', 'string', 'min:6', 'confirmed']
         ];
     }
