@@ -26,7 +26,8 @@
                         [
                             'userId' => $data['delete']['id'],
                             'title' => $data['delete']['title'],
-                            'idModal' => substr($data['delete']['target'], 1)
+                            'idModal' => substr($data['delete']['target'], 1),
+                            'route' => $data['delete']['route']
                         ]
                     )
                 @endif
