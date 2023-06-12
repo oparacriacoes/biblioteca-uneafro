@@ -15,4 +15,22 @@ class Book extends Model
      * @var string
      */
     protected $table = 'book';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'author',
+        'book_publisher',
+        'edition',
+        'volume',
+        'year',
+        'number_of_copies',
+        'number_of_reference_book',
+        'ISBN',
+        'id_user'
+    ];
 }
