@@ -12,7 +12,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $loans = Loan::query()->orderBy('date')->get();
+        $loans = Loan::query()->orderBy('loan_date')->get();
 
         return view('loan.index')->with('loans', $loans);
     }
