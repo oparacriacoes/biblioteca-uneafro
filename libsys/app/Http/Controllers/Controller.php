@@ -22,17 +22,36 @@ class Controller extends BaseController
     }
 
     /**
-     * Method to get the delete icon
+     * Method to get the edit icon
      * @access private
+     * @param string $route
      * @param string $id
      * @return array
      */
-    protected function getIconDelete(string $id)
+    protected function getIconEdit(string $route, string $id)
     {
         return [
             'id' => $id,
-            'title' => 'Excluir Usuário',
-            'target' => '#delete_user_' . $id,
+            'route' => $route . '/' . $id . '/edit',
+            'icon' => 'text-info fa-regular fa-pen-to-square'
+        ];
+    }
+
+    /**
+     * Method to get the delete icon
+     * @access private
+     * @param string $route
+     * @param string $id
+     * @param string $title
+     * @return array
+     */
+    protected function getIconDelete(string $route, string $id, string $title)
+    {
+        return [
+            'id' => $id,
+            'title' => $title,
+            'target' => '#delete_' . $route . '_' . $id,
+            'route' => $route . '/' . serialize($id),
             'icon' => 'text-primary fa-solid fa-trash-can',
             'dataToggle' => 'modal'
         ];
