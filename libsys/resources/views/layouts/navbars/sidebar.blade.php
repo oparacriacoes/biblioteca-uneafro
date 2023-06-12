@@ -1,6 +1,7 @@
 @php
-    $user = in_array($pageSlug, ['user_control', 'create_user', 'edit_user']) ? 'true' : 'false';
+    $book = in_array($pageSlug, ['book_control', 'create_book', 'edit_book']) ? 'true' : 'false';
     $loan = in_array($pageSlug, ['loan_control', 'make_loan']) ? 'true' : 'false';
+    $user = in_array($pageSlug, ['user_control', 'create_user', 'edit_user']) ? 'true' : 'false';
 @endphp
 
 <div class="sidebar">
@@ -39,7 +40,7 @@
                     </ul>
                 </div>
             </li>
-            <li @if ($pageSlug == 'book') class="active" @endif>
+            <li @if ($book == 'true') class="active" @endif>
                 <a href="{{ route('book.index') }}">
                     <i class="fas fa-book"></i>
                     <p>Livros</p>
