@@ -1,6 +1,7 @@
 @php
     $book = in_array($pageSlug, ['book_control', 'create_book', 'edit_book']) ? 'true' : 'false';
     $loan = in_array($pageSlug, ['loan_control', 'make_loan']) ? 'true' : 'false';
+    $member = in_array($pageSlug, ['member_control', 'create_member', 'edit_member']) ? 'true' : 'false';
     $user = in_array($pageSlug, ['user_control', 'create_user', 'edit_user']) ? 'true' : 'false';
 @endphp
 
@@ -46,7 +47,7 @@
                     <p>Livros</p>
                 </a>
             </li>
-            <li @if ($pageSlug == 'member') class="active" @endif>
+            <li @if ($member == 'true') class="active" @endif>
                 <a href="{{ route('member.index') }}">
                     <i class="fas fa-users"></i>
                     <p>Membros</p>
