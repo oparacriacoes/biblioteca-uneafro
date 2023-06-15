@@ -9,9 +9,9 @@
         </div>
     </div>
     <select name="{{ $name }}" class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}">
-        <option value="">Selecione o tipo do membro</option>
+        <option style="background-color: #344675;" value="">Selecione o tipo do membro</option>
         @foreach ($slMemberType as $memberType)
-            <option value="{{ $memberType['id'] }}" {{ $memberType['id'] == $type ? 'selected' : '' }}>
+            <option style="background-color: #344675;"value="{{ $memberType['id'] }}" {{ $memberType['id'] == $type ? 'selected' : '' }}>
                 {{ $memberType['type'] }}
             </option>
         @endforeach
