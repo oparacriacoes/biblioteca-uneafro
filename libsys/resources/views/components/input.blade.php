@@ -10,7 +10,7 @@
         name="{{ $name }}"
         class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}"
         placeholder="{{ empty($placeholder) ? $label : $placeholder }}"
-        value="{{ empty($oldValue) ? old($name) : old($name, $oldValue) }}"
+        @if (!empty($type) && $type != 'password') value="{{ empty($oldValue) ? old($name) : old($name, $oldValue) }}" @endif
         @if (!empty($maxLength)) maxlength="{{ $maxLength }}" @endif
     >
     @include('components.alerts.feedback', ['field' => $name])
