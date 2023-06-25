@@ -179,6 +179,15 @@ return [
         'old_password' => 'Senha Atual',
         'id_member_type' => 'Selecione o tipo do membro',
         'phone' => 'Telefone',
-        'full_name' => 'Nome Completo'
+        'full_name' => 'Nome Completo',
+        'title' => 'Título do Livro',
+        'author' => 'Autor',
+        'book_publisher' => 'Editora',
+        'edition' => 'Edição',
+        'volume' => 'Volume',
+        'year' => 'Ano',
+        'number_of_copies' => 'Número de Cópias',
+        'number_of_reference_book' => 'Número de Livros de Referência',
+        'ISBN' => 'ISBN'
     ]
 ];
