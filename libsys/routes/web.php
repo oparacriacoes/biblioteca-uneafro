@@ -41,5 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('member', MemberController::class);
     Route::resource('user', UserController::class);
 
+    Route::post('/member_import', [MemberController::class, 'import'])->name('member.import');
     Route::put('/user_password', [UserController::class, 'password'])->name('user.password');
 });
