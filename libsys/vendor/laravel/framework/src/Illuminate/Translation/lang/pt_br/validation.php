@@ -176,6 +176,9 @@ return [
         'password' => 'Senha',
         'password_confirmation' => 'Confirmar Senha',
         'current_password' => 'Senha Atual',
-        'old_password' => 'Senha Atual'
+        'old_password' => 'Senha Atual',
+        'id_member_type' => 'Selecione o tipo do membro',
+        'phone' => 'Telefone',
+        'full_name' => 'Nome Completo'
     ]
 ];
