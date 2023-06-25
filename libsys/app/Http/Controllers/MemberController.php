@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Models\Member;
 use App\Models\MemberType;
+use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
@@ -122,6 +123,43 @@ class MemberController extends Controller
         $member->delete();
 
         return redirect()->route('member.index')->with('success', 'Membro excluído com sucesso!');
+    }
+
+    /**
+     * Import the specified resource from storage.
+     * @access public
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function import(Request $request)
+    {
+        $file = $request->file('csv-file');
+        
+        $lines = file($file->getPathname());
+        array_shift($lines);
+
+        $lineRemove = json_decode($request->input('invalid-rows'));
+        $callback = function($key) use ($lineRemove) {
+            return !in_array($key, $lineRemove);
+        };
+        
+        $filteredLines = array_filter($lines, $callback, ARRAY_FILTER_USE_KEY);
+
+        foreach ($filteredLines as $line) {
+            $columns = explode(';', $line);
+            $columns[4] = str_replace("\r\n", '', $columns[4]);
+
+            Member::create([
+                'full_name' => $columns[0],
+                'id_member_type' => $columns[1],
+                'email' => empty($columns[2]) ? null : $columns[2],
+                'phone' => empty($columns[3]) ? null : $columns[3],
+                'cpf' => empty($columns[4]) ? null : $columns[4],
+                'id_user' => auth()->user()->id
+            ]);
+        }
+        
+        return redirect()->route('member.index')->with('success', 'Membros importados com sucesso!');
     }
 
     /**
