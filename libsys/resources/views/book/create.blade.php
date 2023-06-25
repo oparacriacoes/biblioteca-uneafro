@@ -24,7 +24,7 @@
                                 'placeholder' => 'Título do Livro',
                                 'name' => 'title',
                                 'maxLength' => 50,
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -34,7 +34,7 @@
                                 'placeholder' => 'Autor',
                                 'name' => 'author',
                                 'maxLength' => 50,
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -44,7 +44,7 @@
                                 'placeholder' => 'Editora',
                                 'name' => 'book_publisher',
                                 'maxLength' => 30,
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -53,7 +53,7 @@
                             [
                                 'placeholder' => 'Edição',
                                 'name' => 'edition',
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -62,7 +62,7 @@
                             [
                                 'placeholder' => 'Volume',
                                 'name' => 'volume',
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -71,7 +71,7 @@
                             [
                                 'placeholder' => 'Ano',
                                 'name' => 'year',
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -80,7 +80,7 @@
                             [
                                 'placeholder' => 'Número de Cópias',
                                 'name' => 'number_of_copies',
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -89,7 +89,7 @@
                             [
                                 'placeholder' => 'Número de Livros de Referência',
                                 'name' => 'number_of_reference_book',
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
 
@@ -99,7 +99,7 @@
                                 'placeholder' => 'ISBN',
                                 'name' => 'ISBN',
                                 'maxLength' => 13,
-                                'icon' => 'fa-regular fa-user'
+                                'icon' => 'fa-regular fa-id-card'
                             ]
                         )
                     </div>
