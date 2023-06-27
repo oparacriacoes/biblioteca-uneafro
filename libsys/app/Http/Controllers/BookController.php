@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -19,7 +20,13 @@ class BookController extends Controller
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($books);
 
-        return view('book.index')->with(['arrayHeader' => $arrayHeader, 'arrayData' => $arrayData]);
+        $bookIsbn = array_unique(array_column(Book::query()->select('book.isbn')->get()->toArray(), 'isbn'));
+
+        return view('book.index')->with([
+            'arrayHeader' => $arrayHeader,
+            'arrayData' => $arrayData,
+            'arrayIsbn' => $bookIsbn
+        ]);
     }
 
     /**
@@ -42,18 +49,22 @@ class BookController extends Controller
     {
         $validatedData = $request->validated();
 
-        Book::create([
-            'title' => $validatedData['title'],
-            'author' => $validatedData['author'],
-            'book_publisher' => $validatedData['book_publisher'],
-            'edition' => $validatedData['edition'],
-            'volume' => $validatedData['volume'],
-            'year' => $validatedData['year'],
-            'number_of_copies' => $validatedData['number_of_copies'],
-            'number_of_reference_book' => $validatedData['number_of_reference_book'],
-            'ISBN' => $validatedData['ISBN'],
-            'id_user' => auth()->user()->id
-        ]);
+        $totalBooks = $validatedData['number_of_copies'] + $validatedData['number_of_reference_book'];
+
+        for ($i = 0; $i < $totalBooks; $i++) {
+            Book::create([
+                'title' => $validatedData['title'],
+                'author' => $validatedData['author'],
+                'book_publisher' => $validatedData['book_publisher'],
+                'edition' => $validatedData['edition'],
+                'volume' => $validatedData['volume'],
+                'year' => $validatedData['year'],
+                'number_of_copies' => $validatedData['number_of_copies'],
+                'number_of_reference_book' => $validatedData['number_of_reference_book'],
+                'ISBN' => $validatedData['ISBN'],
+                'id_user' => auth()->user()->id
+            ]);
+        }
 
         return redirect()->route('book.index')->with('success', 'Livro adicionado com sucesso!');
     }
@@ -125,6 +136,47 @@ class BookController extends Controller
     }
 
     /**
+     * Import the specified resource from storage.
+     * @access public
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function import(Request $request)
+    {
+        $file = $request->file('csv-file');
+        
+        $lines = file($file->getPathname());
+        array_shift($lines);
+
+        $lineRemove = json_decode($request->input('invalid-rows'));
+        $filteredLines = $this->arrayFilter($lines, $lineRemove);
+
+        foreach ($filteredLines as $line) {
+            $columns = explode(';', $line);
+            $columns[8] = str_replace("\r\n", '', $columns[8]);
+
+            $totalBooks = $columns[6] + $columns[7];
+
+            for ($i = 0; $i < $totalBooks; $i++) {
+                Book::create([
+                    'title' => $columns[0],
+                    'author' => $columns[1],
+                    'book_publisher' => $columns[2],
+                    'edition' => $columns[3],
+                    'volume' => $columns[4],
+                    'year' => $columns[5],
+                    'number_of_copies' => $columns[6],
+                    'number_of_reference_book' => $columns[7],
+                    'ISBN' => $columns[8],
+                    'id_user' => auth()->user()->id
+                ]);
+            }
+        }
+        
+        return redirect()->route('book.index')->with('success', 'Livros importados com sucesso!');
+    }
+
+    /**
      * Method to get table header
      * @access private
      * @return array
@@ -132,6 +184,7 @@ class BookController extends Controller
     private function getArrayHeader()
     {
         return [
+            'Acervo',
             'Título',
             'Autor',
             'Editora',
@@ -157,6 +210,7 @@ class BookController extends Controller
         $arrayData = [];
         foreach ($books as $book) {
             $arrayData[] = [
+                'collection' => $book->id,
                 'title' => $book->title,
                 'author' => $book->author,
                 'book_publisher' => $book->book_publisher,
