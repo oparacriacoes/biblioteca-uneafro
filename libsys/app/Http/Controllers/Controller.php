@@ -11,6 +11,22 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     /**
+     * Method to exclude indexes of array
+     * @access protected
+     * @param array $array
+     * @param array $indexRemove array of index to remove
+     * @return array array filtered
+     */
+    protected function arrayFilter($array, $indexRemove)
+    {
+        foreach ($indexRemove as $index) {
+            unset($array[$index]);
+        }
+        
+        return array_values($array);
+    }
+
+    /**
      * Method to format cpf number
      * @access protected
      * @param int $cpf
