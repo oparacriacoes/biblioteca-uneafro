@@ -18,6 +18,13 @@
                         <input type="file" id="csv-file" name="csv-file" onchange="updateFileName(this)">
                     </div>
                     <div id="csv-rows"></div>
+                    @if (!empty($arrayEmail) && !empty($arrayCpf) && !empty($arrayPhone))
+                    <input type="hidden" id="array-email" name="array-email" value="{{ json_encode($arrayEmail) }}">
+                    <input type="hidden" id="array-cpf" name="array-cpf" value="{{ json_encode($arrayCpf) }}">
+                    <input type="hidden" id="array-phone" name="array-phone" value="{{ json_encode($arrayPhone) }}">
+                    @elseif (!empty($arrayIsbn))
+                    <input type="hidden" id="array-isbn" name="array-isbn" value="{{ json_encode($arrayIsbn) }}">
+                    @endif
                     <input type="hidden" id="invalid-rows" name="invalid-rows">
                 </div>
                 <div class="modal-footer">
