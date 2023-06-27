@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Models\Member;
 use App\Models\MemberType;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -24,8 +25,24 @@ class MemberController extends Controller
 
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($members);
+
+        $memberData = Member::query()
+            ->select('member.email', 'member.cpf', 'member.phone')
+            ->get()
+            ->toArray();
+        $userData = User::query()->select('user.email', 'user.cpf')->get()->toArray();
+
+        $arrayEmail = array_merge(array_column($memberData, 'email'), array_column($userData, 'email'));
+        $arrayPhone = array_column($memberData, 'phone');
+        $arrayCpf = array_merge(array_column($memberData, 'cpf'), array_column($userData, 'cpf'));
     
-        return view('member.index')->with(['arrayHeader' => $arrayHeader, 'arrayData' => $arrayData]);
+        return view('member.index')->with([
+            'arrayHeader' => $arrayHeader,
+            'arrayData' => $arrayData,
+            'arrayEmail' => $arrayEmail,
+            'arrayPhone' => $arrayPhone,
+            'arrayCpf' => $arrayCpf
+        ]);
     }
 
     /**
@@ -139,11 +156,7 @@ class MemberController extends Controller
         array_shift($lines);
 
         $lineRemove = json_decode($request->input('invalid-rows'));
-        $callback = function($key) use ($lineRemove) {
-            return !in_array($key, $lineRemove);
-        };
-        
-        $filteredLines = array_filter($lines, $callback, ARRAY_FILTER_USE_KEY);
+        $filteredLines = $this->arrayFilter($lines, $lineRemove);
 
         foreach ($filteredLines as $line) {
             $columns = explode(';', $line);
