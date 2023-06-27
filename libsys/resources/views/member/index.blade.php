@@ -28,11 +28,14 @@
     [
         'title' => 'Importar Membros',
         'route' => 'member_import',
+        'arrayEmail' => $arrayEmail,
+        'arrayCpf' => $arrayCpf,
+        'arrayPhone' => $arrayPhone,
         'message' => 'Para realizar a importação dos dados dos membros da sua instituição de ensino você deve criar um'
             . ' arquivo .csv em que a primeira linha é o cabeçalho e as colunas são, respectivamente, os campos:'
-            . ' Nome Completo, Código do Tipo (1 = Professor(a) ou 2 = Aluno(a)), Email, Telefone, CPF. As demais'
-            . ' linhas devem ser os dados a serem inseridos. É importante que todos os dados estejam'
-            . ' preenchidos corretamente para evitar a ocorrência de erros.'
+            . ' Nome Completo, Código do Tipo (1 = Professor(a) ou 2 = Aluno(a)), Email, Telefone (Somente números),'
+            . ' CPF (Somente números). As demais linhas devem ser os dados a serem inseridos. É importante que todos'
+            . ' os dados estejam preenchidos corretamente para evitar a ocorrência de erros.'
     ]
 )
 
