@@ -1,29 +1,48 @@
-// Função para verificar valor vazio
+// Funcao para verificar valor vazio
 function isEmpty(value) {
     return (value === null || value === undefined) || (typeof value === 'string' && value.trim() === '') ?
         true : false;
 }
 
-// Função para validar o formato do nome completo
-function validateFullName(fullName) {
+// Funcao para verificar se valor e um numero
+function validateNumber(number) {
+    return !isNaN(number);
+}
+
+// Funcao para validar o nome
+function validateName(name) {
     let regex = /^\D*$/;
-    return regex.test(fullName) && fullName.length <= 50;
+    return regex.test(name) && name.length <= 50;
 }
 
-// Função para validar o formato do e-mail
+// Funcao para validar o formato do e-mail
 function validateEmail(email) {
+    let registeredEmail = JSON.parse(document.getElementById("array-email").value);
     let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+
+    return !registeredEmail.includes(email) && regex.test(email);
 }
 
-// Função para validar o formato do telefone (1 a 11 dígitos)
+// Funcao para validar o formato do telefone (1 a 11 dígitos)
 function validatePhone(phone) {
+    let registeredPhone = JSON.parse(document.getElementById("array-phone").value);
     let regex = /^\d{1,11}$/;
-    return regex.test(phone);
+
+    return !registeredPhone.includes(phone) && regex.test(phone);
 }  
 
-// Função para validar o formato do CPF (11 dígitos)
-function validateCPF(cpf) {
+// Funcao para validar o formato do CPF (11 dígitos)
+function validateCpf(cpf) {
+    let registeredCpf = JSON.parse(document.getElementById("array-cpf").value);
     let regex = /^\d{11}$/;
-    return regex.test(cpf);
+
+    return !registeredCpf.includes(cpf) && regex.test(cpf);
 }
+
+// Funcao para validar codigo ISBN
+function validateIsbn(isbn) {
+    let registeredIsbn = JSON.parse(document.getElementById("array-isbn").value);
+    let regex = /^\d{10,13}$/;
+
+    return !registeredIsbn.includes(isbn) && regex.test(isbn);
+}  
