@@ -31,6 +31,7 @@ class MemberController extends Controller
             ->get()
             ->toArray();
         $userData = User::query()->select('user.email', 'user.cpf')->get()->toArray();
+        $arrayMemberType = array_column(MemberType::query()->select('member_type.id')->get()->toArray(), 'id');
 
         $arrayEmail = array_merge(array_column($memberData, 'email'), array_column($userData, 'email'));
         $arrayPhone = array_column($memberData, 'phone');
@@ -39,6 +40,7 @@ class MemberController extends Controller
         return view('member.index')->with([
             'arrayHeader' => $arrayHeader,
             'arrayData' => $arrayData,
+            'arrayMemberType' => $arrayMemberType,
             'arrayEmail' => $arrayEmail,
             'arrayPhone' => $arrayPhone,
             'arrayCpf' => $arrayCpf

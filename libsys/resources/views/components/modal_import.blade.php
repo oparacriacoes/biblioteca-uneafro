@@ -18,10 +18,11 @@
                         <input type="file" id="csv-file" name="csv-file" onchange="updateFileName(this)">
                     </div>
                     <div id="csv-rows"></div>
-                    @if (!empty($arrayEmail) && !empty($arrayCpf) && !empty($arrayPhone))
+                    @if (!empty($arrayEmail) && !empty($arrayCpf) && !empty($arrayPhone) && !empty($arrayMemberType))
                     <input type="hidden" id="array-email" name="array-email" value="{{ json_encode($arrayEmail) }}">
                     <input type="hidden" id="array-cpf" name="array-cpf" value="{{ json_encode($arrayCpf) }}">
                     <input type="hidden" id="array-phone" name="array-phone" value="{{ json_encode($arrayPhone) }}">
+                    <input type="hidden" id="array-member-type" name="array-member-type" value="{{ json_encode($arrayMemberType) }}">
                     @elseif (!empty($arrayIsbn))
                     <input type="hidden" id="array-isbn" name="array-isbn" value="{{ json_encode($arrayIsbn) }}">
                     @endif

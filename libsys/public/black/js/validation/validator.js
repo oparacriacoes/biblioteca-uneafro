@@ -15,6 +15,12 @@ function validateName(name) {
     return regex.test(name) && name.length <= 50;
 }
 
+// Funcao para validar tipo do membro
+function validateMemberType(memberType) {
+    let registeredMemberType = JSON.parse(document.getElementById("array-member-type").value);
+    return registeredMemberType.includes(parseInt(memberType));
+}
+
 // Funcao para validar o formato do e-mail
 function validateEmail(email) {
     let registeredEmail = JSON.parse(document.getElementById("array-email").value);
