@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookCopiesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
@@ -37,6 +38,7 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('book', BookController::class);
+    Route::resource('book_copies', BookCopiesController::class);
     Route::resource('loan', LoanController::class);
     Route::resource('member', MemberController::class);
     Route::resource('user', UserController::class);
