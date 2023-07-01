@@ -32,8 +32,15 @@ class BookRequest extends FormRequest
             'edition' => ['required', 'integer'],
             'volume' => ['required', 'integer'],
             'year' => ['required', 'integer'],
-            'number_of_copies' => ['required', 'integer'],
-            'number_of_reference_book' => ['required', 'integer'],
+            'number_of_copies' => ['required', 'integer', 'min:1'],
+            'number_of_reference_book' => ['required', 'integer', 'min:0',
+                function ($attribute, $value, $fail) {
+                    $numberOfCopies = $this->input('number_of_copies');
+                    if ($value > $numberOfCopies) {
+                        $fail('O número de livros de referência deve ser menor que o número de cópias.');
+                    }
+                },
+            ],
             'ISBN' => ['required', 'integer', 'min_digits:10',
                 Rule::unique((new Book())->getTable())->ignore(auth()->id())]
         ];
