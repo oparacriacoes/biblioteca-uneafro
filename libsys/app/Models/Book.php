@@ -29,7 +29,6 @@ class Book extends Model
         'volume',
         'year',
         'number_of_copies',
-        'number_of_reference_book',
         'ISBN',
         'id_user'
     ];
