@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\CopieRequest;
 use App\Models\Book;
+use App\Models\BookCopies;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -15,17 +17,15 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::query()->orderBy('title')->get();
-
+        $books = $this->lstBook();
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($books);
-
-        $bookIsbn = array_unique(array_column(Book::query()->select('book.isbn')->get()->toArray(), 'isbn'));
+        $arrayIsbn = Book::query()->pluck('isbn')->toArray();
 
         return view('book.index')->with([
             'arrayHeader' => $arrayHeader,
             'arrayData' => $arrayData,
-            'arrayIsbn' => $bookIsbn
+            'arrayIsbn' => $arrayIsbn
         ]);
     }
 
@@ -49,24 +49,9 @@ class BookController extends Controller
     {
         $validatedData = $request->validated();
 
-        $totalBooks = $validatedData['number_of_copies'] + $validatedData['number_of_reference_book'];
+        $this->insData($validatedData, $validatedData['number_of_copies'], $validatedData['number_of_reference_book']);
 
-        for ($i = 0; $i < $totalBooks; $i++) {
-            Book::create([
-                'title' => $validatedData['title'],
-                'author' => $validatedData['author'],
-                'book_publisher' => $validatedData['book_publisher'],
-                'edition' => $validatedData['edition'],
-                'volume' => $validatedData['volume'],
-                'year' => $validatedData['year'],
-                'number_of_copies' => $validatedData['number_of_copies'],
-                'number_of_reference_book' => $validatedData['number_of_reference_book'],
-                'ISBN' => $validatedData['ISBN'],
-                'id_user' => auth()->user()->id
-            ]);
-        }
-
-        return redirect()->route('book.index')->with('success', 'Livro adicionado com sucesso!');
+        return redirect()->route('book.index')->with('success', 'Livro(s) adicionado(s) com sucesso!');
     }
 
     /**
@@ -87,7 +72,13 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        $book = Book::findOrFail(unserialize($id));
+        $idBookCopie = unserialize($id);
+
+        $book = ($this->lstBook($idBookCopie))[0];
+
+        $bookCopies = BookCopies::query()->where('id_book', '=', $book['id'])->pluck('id')->toArray();
+
+        $book['bookCopies'] = implode(", ", $bookCopies);
 
         return view('book.edit')->with('book', $book);
     }
@@ -95,44 +86,40 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      * @access public
-     * @param BookRequest $request
+     * @param CopieRequest $request
      * @param string $id serialized id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(BookRequest $request, string $id)
+    public function update(CopieRequest $request, string $id)
     {
-        $request->validated();
+        $requestData = $request->validated();
 
         $book = Book::findOrFail(unserialize($id));
 
-        $book->title = $request->input('title');
-        $book->author = $request->input('author');
-        $book->book_publisher = $request->input('book_publisher');
-        $book->edition = $request->input('edition');
-        $book->volume = $request->input('volume');
-        $book->year = $request->input('year');
-        $book->number_of_copies = $request->input('number_of_copies');
-        $book->number_of_reference_book = $request->input('number_of_reference_book');
-        $book->ISBN = $request->input('ISBN');
-        $book->id_user = auth()->user()->id;
+        $book->update([
+            'title' => $requestData['title'],
+            'author' => $requestData['author'],
+            'book_publisher' => $requestData['book_publisher'],
+            'edition' => $requestData['edition'],
+            'volume' => $requestData['volume'],
+            'year' => $requestData['year'],
+            'ISBN' => $requestData['ISBN'],
+            'id_user' => auth()->user()->id
+        ]);
 
-        $book->save();
-
-        return redirect()->route('book.index')->with('success', 'Livro editado com sucesso!');
+        return redirect()->route('book.edit', ['book' => $request->input('idBookCopie')])->with(
+            'success', 'Livro editado com sucesso!'
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      * @access public
-     * @param string $id serialized id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param string $id
      */
     public function destroy(string $id)
     {
-        $book = Book::findOrFail(unserialize($id));
-        $book->delete();
-
-        return redirect()->route('book.index')->with('success', 'Livro excluído com sucesso!');
+        //
     }
 
     /**
@@ -155,25 +142,10 @@ class BookController extends Controller
             $columns = explode(';', $line);
             $columns[8] = str_replace("\r\n", '', $columns[8]);
 
-            $totalBooks = $columns[6] + $columns[7];
-
-            for ($i = 0; $i < $totalBooks; $i++) {
-                Book::create([
-                    'title' => $columns[0],
-                    'author' => $columns[1],
-                    'book_publisher' => $columns[2],
-                    'edition' => $columns[3],
-                    'volume' => $columns[4],
-                    'year' => $columns[5],
-                    'number_of_copies' => $columns[6],
-                    'number_of_reference_book' => $columns[7],
-                    'ISBN' => $columns[8],
-                    'id_user' => auth()->user()->id
-                ]);
-            }
+            $this->insData($columns, $columns[6], $columns[7], true);
         }
         
-        return redirect()->route('book.index')->with('success', 'Livros importados com sucesso!');
+        return redirect()->route('book.index')->with('success', 'Livro(s) importado(s) com sucesso!');
     }
 
     /**
@@ -192,7 +164,7 @@ class BookController extends Controller
             'Volume',
             'Ano',
             'Nº de Cópias',
-            'Nº de Livros de Referência',
+            'Livro de Referência',
             'ISBN',
             'Editar',
             'Excluir'
@@ -202,7 +174,7 @@ class BookController extends Controller
     /**
      * Method to get table data
      * @access private
-     * @param Illuminate\Database\Eloquent\Collection $books
+     * @param array $books
      * @return array $arrayData
      */
     private function getArrayData($books)
@@ -210,21 +182,88 @@ class BookController extends Controller
         $arrayData = [];
         foreach ($books as $book) {
             $arrayData[] = [
-                'collection' => $book->id,
-                'title' => $book->title,
-                'author' => $book->author,
-                'book_publisher' => $book->book_publisher,
-                'edition' => $book->edition,
-                'volume' => $book->volume,
-                'year' => $book->year,
-                'number_of_copies' => $book->number_of_copies,
-                'number_of_reference_book' => $book->number_of_reference_book,
-                'ISBN' => $book->ISBN,
-                'edit' => $this->getIconEdit('book', serialize($book->id)),
-                'delete' => $this->getIconDelete('book', $book->id, 'Excluir Livro')
+                'collection' => $book['idBookCopie'],
+                'title' => $book['title'],
+                'author' => $book['author'],
+                'book_publisher' => $book['book_publisher'],
+                'edition' => $book['edition'],
+                'volume' => $book['volume'],
+                'year' => $book['year'],
+                'number_of_copies' => $book['number_of_copies'],
+                'reference_book' => $book['reference_book'] ? 'Sim' : 'Não',
+                'ISBN' => $book['ISBN'],
+                'edit' => $this->getIconEdit('book', serialize($book['idBookCopie'])),
+                'delete' => $this->getIconDelete('book_copies', $book['idBookCopie'], 'Excluir Livro')
             ];
         }
 
         return $arrayData;
+    }
+
+    /**
+     * Method to list the books
+     * @access private
+     * @param int|null $idBookCopie id of table book_copies
+     * @return array array of book copies
+     */
+    private function lstBook($idBookCopie = null)
+    {
+        $query = Book::query()
+            ->select('b.id', 'b.title', 'b.author', 'b.book_publisher', 'b.edition', 'b.volume', 'b.year',
+                'b.number_of_copies', 'bc.reference_book', 'b.ISBN', 'bc.id as idBookCopie')
+            ->from('book as b')
+            ->join('book_copies as bc', 'b.id', '=', 'bc.id_book')
+            ->orderBy('b.title');
+
+        if (!is_null($idBookCopie)) {
+            $query->where('bc.id', '=', $idBookCopie);
+        }
+
+        return $query->get()->toArray();
+    }
+
+    /**
+     * Method to insert book and copies
+     * @access private
+     * @param array $book array with book data
+     * @param int $numberOfCopies number of copies
+     * @param int $numberOfReferenceBooks number of reference books
+     * @param bool $import
+     */
+    private function insData($book, $numberOfCopies, $numberOfReferenceBooks, $import = false)
+    {
+        if (!$import) {
+            $book = Book::create([
+                'title' => $book['title'],
+                'author' => $book['author'],
+                'book_publisher' => $book['book_publisher'],
+                'edition' => $book['edition'],
+                'volume' => $book['volume'],
+                'year' => $book['year'],
+                'number_of_copies' => $book['number_of_copies'],
+                'ISBN' => $book['ISBN'],
+                'id_user' => auth()->user()->id
+            ]);
+        } else {
+            $book = Book::create([
+                'title' => $book[0],
+                'author' => $book[1],
+                'book_publisher' => $book[2],
+                'edition' => $book[3],
+                'volume' => $book[4],
+                'year' => $book[5],
+                'number_of_copies' => $book[6],
+                'ISBN' => $book[8],
+                'id_user' => auth()->user()->id
+            ]);
+        }
+
+        for ($i = 0; $i < $numberOfReferenceBooks; $i++) {
+            BookCopies::create(['id_book' => $book->id, 'reference_book' => 1]);
+        }
+
+        for ($i = 0; $i < $numberOfCopies - $numberOfReferenceBooks; $i++) {
+            BookCopies::create(['id_book' => $book->id]);
+        }
     }
 }
