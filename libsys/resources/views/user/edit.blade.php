@@ -3,6 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
+            @include('components.alerts.success', ['key' => 'success'])
             <div class="card">
                 <div class="card-header">
                     <h5 class="title">Editar Usuário</h5>
@@ -11,8 +12,6 @@
                     <div class="card-body">
                         @csrf
                         @method('put')
-
-                        @include('components.alerts.success', ['key' => 'success'])
                         
                         @include(
                             'components.input',
@@ -63,7 +62,7 @@
                     </div>
                 </form>
             </div>
-
+            @include('components.alerts.success', ['key' => 'password_status'])
             <div class="card">
                 <div class="card-header">
                     <h5 class="title">Alterar Senha</h5>
@@ -72,8 +71,6 @@
                     <div class="card-body">
                         @csrf
                         @method('put')
-
-                        @include('components.alerts.success', ['key' => 'password_status'])
                         
                         @include(
                             'components.input',

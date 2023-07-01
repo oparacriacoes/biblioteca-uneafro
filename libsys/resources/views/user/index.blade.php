@@ -3,9 +3,9 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @include('components.alerts.success', ['key' => 'success'])
         <div class="card">
             <div class="card-header">
-                @include('components.alerts.success', ['key' => 'success'])
                 <div class="row">
                     <div class="col-4">
                         <h4 class="card-title">Controle de Usuários</h4>

@@ -10,7 +10,7 @@
                         <a href=" {{ route('member.index') }} " class="btn btn-sm btn-primary">Voltar</a>
                     </div>
                     <div class="col-7">
-                        <h4 class="card-title">Editar Livro</h4>
+                        <h4 class="card-title">Editar Membro</h4>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         )
                     </div>
                     <div style="text-align: center;" class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-round btn-lg">Adicionar</button>
+                        <button type="submit" class="btn btn-primary btn-round btn-lg">Salvar</button>
                     </div>
                 </form>
             </div>
