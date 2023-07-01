@@ -17,25 +17,18 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::query()
-            ->join('member_type', 'member.id_member_type', '=', 'member_type.id')
-            ->select('member.*', 'member_type.type')
-            ->orderBy('full_name')
-            ->get();
+        $members = $this->lstMember();
 
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($members);
 
-        $memberData = Member::query()
-            ->select('member.email', 'member.cpf', 'member.phone')
-            ->get()
-            ->toArray();
-        $userData = User::query()->select('user.email', 'user.cpf')->get()->toArray();
-        $arrayMemberType = array_column(MemberType::query()->select('member_type.id')->get()->toArray(), 'id');
+        $arrayMemberType = MemberType::query()->pluck('id')->toArray();
 
-        $arrayEmail = array_merge(array_column($memberData, 'email'), array_column($userData, 'email'));
-        $arrayPhone = array_column($memberData, 'phone');
-        $arrayCpf = array_merge(array_column($memberData, 'cpf'), array_column($userData, 'cpf'));
+        $userData = User::query()->select('user.email', 'user.cpf')->get()->toArray();
+
+        $arrayEmail = array_merge(array_column($members, 'email'), array_column($userData, 'email'));
+        $arrayPhone = array_column($members, 'phone');
+        $arrayCpf = array_merge(array_column($members, 'cpf'), array_column($userData, 'cpf'));
     
         return view('member.index')->with([
             'arrayHeader' => $arrayHeader,
@@ -54,7 +47,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        $slMemberType = (MemberType::query()->orderBy('type')->get())->toArray();
+        $slMemberType = MemberType::query()->orderBy('type')->get()->toArray();
 
         return view('member.create')->with('slMemberType', $slMemberType);
     }
@@ -100,7 +93,7 @@ class MemberController extends Controller
     public function edit(string $id)
     {
         $member = Member::findOrFail(unserialize($id));
-        $slMemberType = (MemberType::query()->orderBy('type')->get())->toArray();
+        $slMemberType = MemberType::query()->orderBy('type')->get()->toArray();
 
         return view('member.edit')->with(['member' => $member, 'slMemberType' => $slMemberType]);
     }
@@ -114,18 +107,18 @@ class MemberController extends Controller
      */
     public function update(MemberRequest $request, string $id)
     {
-        $request->validated();
+        $validatedData = $request->validated();
 
         $member = Member::findOrFail(unserialize($id));
 
-        $member->full_name = $request->input('full_name');
-        $member->id_member_type = $request->input('id_member_type');
-        $member->email = $request->input('email');
-        $member->phone = $request->input('phone');
-        $member->cpf = $request->input('cpf');
-        $member->id_user = auth()->user()->id;
-
-        $member->save();
+        $member->update([
+            'full_name' => $validatedData['full_name'],
+            'id_member_type' => $validatedData['id_member_type'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'cpf' => $validatedData['cpf'],
+            'id_user' => auth()->user()->id
+        ]);
 
         return redirect()->route('member.index')->with('success', 'Membro editado com sucesso!');
     }
@@ -190,7 +183,7 @@ class MemberController extends Controller
     /**
      * Method to get table data
      * @access private
-     * @param Illuminate\Database\Eloquent\Collection $members
+     * @param array $members
      * @return array $arrayData
      */
     private function getArrayData($members)
@@ -198,16 +191,32 @@ class MemberController extends Controller
         $arrayData = [];
         foreach ($members as $member) {
             $arrayData[] = [
-                'full_name' => $member->full_name,
-                'type' => $member->type,
-                'email' => $member->email,
-                'phone' => $member->phone,
-                'cpf' => !is_null($member->cpf) ? $this->formatCpf($member->cpf) : '',
-                'edit' => $this->getIconEdit('member', serialize($member->id)),
-                'delete' => $this->getIconDelete('member', $member->id, 'Excluir Membro')
+                'full_name' => $member['full_name'],
+                'type' => $member['type'],
+                'email' => $member['email'],
+                'phone' => $member['phone'],
+                'cpf' => !is_null($member['cpf']) ? $this->formatCpf($member['cpf']) : '',
+                'edit' => $this->getIconEdit('member', serialize($member['id'])),
+                'delete' => $this->getIconDelete('member', $member['id'], 'Excluir Membro')
             ];
         }
 
         return $arrayData;
+    }
+
+    /**
+     * Method to list the members
+     * @access private
+     * @return array array of members
+     */
+    private function lstMember()
+    {
+        return Member::query()
+            ->select('m.id', 'm.full_name', 'm.email', 'm.phone', 'm.cpf', 'mt.type')
+            ->from('member as m')
+            ->join('member_type as mt', 'm.id_member_type', '=', 'mt.id')
+            ->orderBy('full_name')
+            ->get()
+            ->toArray();
     }
 }
