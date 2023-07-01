@@ -17,11 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()
-            ->where('id', '!=', 1)
-            ->orderBy('name')
-            ->orderBy('last_name')
-            ->get();
+        $users = User::query()->where('id', '!=', 1)->orderBy('name')->orderBy('last_name')->get()->toArray();
         
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($users);
@@ -73,14 +69,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @access public
-     * @param string $id serialized id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(string $id)
+    public function edit()
     {
-        $user = User::findOrFail(unserialize($id));
-
-        return view('user.edit')->with('user', $user);
+        return view('user.edit');
     }
 
     /**
@@ -92,16 +85,16 @@ class UserController extends Controller
      */
     public function update(ProfileRequest $request, string $id)
     {
-        $request->validated();
+        $validatedData = $request->validated();
 
         $user = User::findOrFail(unserialize($id));
 
-        $user->name = $request->input('name');
-        $user->last_name = $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->cpf = $request->input('cpf');
-
-        $user->save();
+        $user->update([
+            'name' => $validatedData['name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => $validatedData['email'],
+            'cpf' => $validatedData['cpf']
+        ]);
 
         return redirect()
             ->route('user.edit', ['user' => serialize(auth()->user()->id)])
@@ -130,11 +123,11 @@ class UserController extends Controller
      */
     public function password(PasswordRequest $request)
     {
-        $request->validated();
+        $validatedData = $request->validated();
 
         $user = User::findOrFail(auth()->user()->id);
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
+
+        $user->update(['password' => Hash::make($validatedData['password'])]);
 
         return redirect()
             ->route('user.edit', ['user' => serialize(auth()->user()->id)])
@@ -154,7 +147,7 @@ class UserController extends Controller
     /**
      * Method to get table data
      * @access private
-     * @param Illuminate\Database\Eloquent\Collection $users
+     * @param array $users
      * @return array $arrayData
      */
     private function getArrayData($users)
@@ -162,10 +155,10 @@ class UserController extends Controller
         $arrayData = [];
         foreach ($users as $user) {
             $arrayData[] = [
-                'user' => $user->name . ' ' . $user->last_name,
-                'email' => $user->email,
-                'cpf' => $this->formatCpf($user->cpf),
-                'delete' => $this->getIconDelete('user', $user->id, 'Excluir Usuário')
+                'user' => $user['name'] . ' ' . $user['last_name'],
+                'email' => $user['email'],
+                'cpf' => $this->formatCpf($user['cpf']),
+                'delete' => $this->getIconDelete('user', $user['id'], 'Excluir Usuário')
             ];
         }
 
