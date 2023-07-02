@@ -8,11 +8,11 @@ function validateInputs(values) {
     let validatedCpf = isEmpty(values[4]) ? true : validateCpf(values[4]);
   
     if (!validatedName) {
-        errors.push('Nome inválido;');
+        errors.push('Nome não informado ou inválido');
     }
   
     if (!validatedIdMembeType) {
-        errors.push('Código do tipo de membro inválido;');
+        errors.push('Código do tipo de membro não informado ou inválido;');
     }
   
     if (!validatedEmail) {
