@@ -17,4 +17,11 @@ class Loan extends Model
      * @var string
      */
     protected $table = 'loan';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['id_member', 'id_book_copies', 'loan_date', 'return_date', 'returned'];
 }
