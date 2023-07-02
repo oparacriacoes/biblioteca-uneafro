@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li @if ($pageSlug == 'make_loan') class="active" @endif>
-                            <a href="{{ route('loan.index') }}">
+                            <a href="{{ route('loan.create') }}">
                                 <i class="fa-regular fa-handshake"></i>
                                 <p>Realizar Empréstimo</p>
                             </a>
