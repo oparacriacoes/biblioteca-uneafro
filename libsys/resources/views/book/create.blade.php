@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-5 text-left">
-                        <a href=" {{ route('book.index') }} " class="btn btn-sm btn-primary">Voltar</a>
+                        <a href="{{ route('book.index') }}" class="btn btn-sm btn-primary">Voltar</a>
                     </div>
                     <div class="col-7">
                         <h4 class="card-title">Adicionar Livro</h4>
@@ -18,92 +18,123 @@
                 <form class="form" method="post" action="{{ route('book.store') }}">
                     @csrf
                     <div class="card-body">
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Título do Livro',
-                                'name' => 'title',
-                                'maxLength' => 50,
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Título do Livro',
+                                        'placeholder' => 'Título do Livro',
+                                        'name' => 'title',
+                                        'maxLength' => 50,
+                                        'icon' => 'fa-solid fa-book'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-6 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Autor',
+                                        'placeholder' => 'Autor',
+                                        'name' => 'author',
+                                        'maxLength' => 50,
+                                        'icon' => 'fa-regular fa-user'
+                                    ]
+                                )
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Editora',
+                                        'placeholder' => 'Editora',
+                                        'name' => 'book_publisher',
+                                        'maxLength' => 30,
+                                        'icon' => 'fa-regular fa-building'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-2 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Ano',
+                                        'placeholder' => 'Ano',
+                                        'name' => 'year',
+                                        'maxLength' => 5,
+                                        'icon' => 'fa-regular fa-calendar-alt'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-3 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Edição',
+                                        'placeholder' => 'Edição',
+                                        'name' => 'edition',
+                                        'maxLength' => 9,
+                                        'icon' => 'fa-solid fa-pencil'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-3 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Volume',
+                                        'placeholder' => 'Volume',
+                                        'name' => 'volume',
+                                        'maxLength' => 9,
+                                        'icon' => 'fa-solid fa-layer-group'
+                                    ]
+                                )
+                            </div>
+                        </div>
 
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Autor',
-                                'name' => 'author',
-                                'maxLength' => 50,
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Editora',
-                                'name' => 'book_publisher',
-                                'maxLength' => 30,
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Edição',
-                                'name' => 'edition',
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Volume',
-                                'name' => 'volume',
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Ano',
-                                'name' => 'year',
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Número de Cópias',
-                                'name' => 'number_of_copies',
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'Número de Livros de Referência',
-                                'name' => 'number_of_reference_book',
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'placeholder' => 'ISBN',
-                                'name' => 'ISBN',
-                                'maxLength' => 13,
-                                'icon' => 'fa-regular fa-id-card'
-                            ]
-                        )
+                        <div class="row">
+                            <div class="col-4 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'ISBN',
+                                        'placeholder' => 'ISBN',
+                                        'name' => 'ISBN',
+                                        'maxLength' => 13,
+                                        'icon' => 'fa-solid fa-barcode'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-4 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Número de Cópias',
+                                        'placeholder' => 'Número de Cópias',
+                                        'name' => 'number_of_copies',
+                                        'maxLength' => 9,
+                                        'icon' => 'fa-regular fa-copy'
+                                    ]
+                                )
+                            </div>
+                            <div class="col-4 text-left">
+                                @include(
+                                    'components.input',
+                                    [
+                                        'label' => 'Número de Livros de Referência',
+                                        'placeholder' => 'Número de Livros de Referência',
+                                        'name' => 'number_of_reference_book',
+                                        'maxLength' => 9,
+                                        'icon' => 'fa-regular fa-bookmark'
+                                    ]
+                                )
+                            </div>
+                        </div>
                     </div>
-                    <div style="text-align: center;" class="card-footer">
+                    <div class="card-footer" style="text-align: center;">
                         <button type="submit" class="btn btn-primary btn-round btn-lg">Adicionar</button>
                     </div>
                 </form>
