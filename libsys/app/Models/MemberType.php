@@ -24,4 +24,19 @@ class MemberType extends Model
      * @var array<int, string>
      */
     protected $fillable = ['type'];
+
+    /**
+     * Method to list the members type
+     * @access private
+     * @return array array members type
+     */
+    public function lstMemberType()
+    {
+        return MemberType::query()
+            ->select('mt.id', 'mt.type')
+            ->from('member_type as mt')
+            ->orderBy('type')
+            ->get()
+            ->toArray();
+    }
 }
