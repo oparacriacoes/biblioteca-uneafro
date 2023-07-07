@@ -1,150 +1,125 @@
 @extends('layouts.app', ['page' => __('Perfil do Usuário'), 'pageSlug' => 'edit_user'])
 
 @section('content')
-    <div class="row">
-        <div class="col-md-8">
-            @include('components.alerts.success', ['key' => 'success'])
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="title">Editar Usuário</h5>
-                </div>
-                <form method="post" action="{{ route('user.update', ['user' => serialize(auth()->user()->id)]) }}" autocomplete="off">
-                    <div class="card-body">
-                        @csrf
-                        @method('put')
-                        
-                        @include(
-                            'components.input',
-                            [
-                                'label' => 'Nome',
-                                'name' => 'name',
-                                'oldValue' => auth()->user()->name,
-                                'maxLength' => 20,
-                                'icon' => 'fa-regular fa-user'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'label' => 'Sobrenome',
-                                'name' => 'last_name',
-                                'oldValue' => auth()->user()->last_name,
-                                'maxLength' => 20,
-                                'icon' => 'fa-regular fa-user'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'label' => 'Email',
-                                'name' => 'email',
-                                'oldValue' => auth()->user()->email,
-                                'maxLength' => 50,
-                                'icon' => 'fa-regular fa-envelope'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'label' => 'CPF',
-                                'name' => 'cpf',
-                                'oldValue' => auth()->user()->cpf,
-                                'maxLength' => 11,
-                                'icon' => 'fa-regular fa-address-card'
-                            ]
-                        )
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-fill btn-primary">Salvar</button>
-                    </div>
-                </form>
+<div class="row">
+    <div class="col-md-6">
+        @include('components.alerts.success', ['key' => 'success'])
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Editar Usuário</h5>
             </div>
-            @include('components.alerts.success', ['key' => 'password_status'])
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="title">Alterar Senha</h5>
-                </div>
-                <form method="post" action="{{ route('user.password') }}" autocomplete="off">
-                    <div class="card-body">
-                        @csrf
-                        @method('put')
-                        
-                        @include(
-                            'components.input',
-                            [
-                                'type' => 'password',
-                                'label' => 'Senha Atual',
-                                'name' => 'old_password',
-                                'icon' => 'fa-solid fa-lock'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'type' => 'password',
-                                'label' => 'Nova Senha',
-                                'name' => 'password',
-                                'icon' => 'fa-solid fa-lock'
-                            ]
-                        )
-
-                        @include(
-                            'components.input',
-                            [
-                                'type' => 'password',
-                                'label' => 'Confirmar Nova Senha',
-                                'name' => 'password_confirmation',
-                                'icon' => 'fa-solid fa-lock'
-                            ]
-                        )
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-fill btn-primary">Alterar Senha</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-user">
+            <form method="post" action="{{ route('user.update', ['user' => serialize(auth()->user()->id)]) }}" autocomplete="off">
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="author">
-                            <div class="block block-one"></div>
-                            <div class="block block-two"></div>
-                            <div class="block block-three"></div>
-                            <div class="block block-four"></div>
-                            <a href="#">
-                                <img class="avatar" src="{{ asset('black') }}/img/emilyz.jpg" alt="">
-                                <h5 class="title">{{ auth()->user()->name }}</h5>
-                            </a>
-                            <p class="description">
-                                {{ __('Ceo/Co-Founder') }}
-                            </p>
-                        </div>
-                    </p>
-                    <div class="card-description">
-                        {{ __('Do not be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...') }}
-                    </div>
+                    @csrf
+                    @method('put')
+                    
+                    @include(
+                        'components.input',
+                        [
+                            'label' => 'Nome',
+                            'placeholder' => 'Nome',
+                            'name' => 'name',
+                            'oldValue' => auth()->user()->name,
+                            'maxLength' => 20,
+                            'icon' => 'fa-regular fa-user'
+                        ]
+                    )
+
+                    @include(
+                        'components.input',
+                        [
+                            'label' => 'Sobrenome',
+                            'placeholder' => 'Sobrenome',
+                            'name' => 'last_name',
+                            'oldValue' => auth()->user()->last_name,
+                            'maxLength' => 20,
+                            'icon' => 'fa-regular fa-user'
+                        ]
+                    )
+
+                    @include(
+                        'components.input',
+                        [
+                            'label' => 'Email',
+                            'placeholder' => 'Email',
+                            'name' => 'email',
+                            'oldValue' => auth()->user()->email,
+                            'maxLength' => 50,
+                            'icon' => 'fa-regular fa-envelope'
+                        ]
+                    )
+
+                    @include(
+                        'components.input',
+                        [
+                            'label' => 'CPF',
+                            'placeholder' => 'CPF',
+                            'name' => 'cpf',
+                            'oldValue' => auth()->user()->cpf,
+                            'maxLength' => 11,
+                            'icon' => 'fa-regular fa-address-card'
+                        ]
+                    )
                 </div>
-                <div class="card-footer">
-                    <div class="button-container">
-                        <button class="btn btn-icon btn-round btn-facebook">
-                            <i class="fab fa-facebook"></i>
-                        </button>
-                        <button class="btn btn-icon btn-round btn-twitter">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-                        <button class="btn btn-icon btn-round btn-google">
-                            <i class="fab fa-google-plus"></i>
-                        </button>
-                    </div>
+                <div class="card-footer" style="text-align: center;">
+                    <button type="submit" class="btn btn-fill btn-primary">Salvar</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+
+    <div class="col-md-6">
+        @include('components.alerts.success', ['key' => 'password_status'])
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Alterar Senha</h5>
+            </div>
+            <form method="post" action="{{ route('user.password') }}" autocomplete="off">
+                <div class="card-body">
+                    @csrf
+                    @method('put')
+                    
+                    @include(
+                        'components.input',
+                        [
+                            'type' => 'password',
+                            'label' => 'Senha Atual',
+                            'placeholder' => 'Senha Atual',
+                            'name' => 'old_password',
+                            'maxLength' => 30,
+                            'icon' => 'fa-solid fa-lock'
+                        ]
+                    )
+
+                    @include(
+                        'components.input',
+                        [
+                            'type' => 'password',
+                            'label' => 'Nova Senha',
+                            'placeholder' => 'Nova Senha',
+                            'name' => 'password',
+                            'maxLength' => 30,
+                            'icon' => 'fa-solid fa-lock'
+                        ]
+                    )
+
+                    @include(
+                        'components.input',
+                        [
+                            'type' => 'password',
+                            'label' => 'Confirmar Nova Senha',
+                            'placeholder' => 'Confirmar Nova Senha',
+                            'name' => 'password_confirmation',
+                            'maxLength' => 30,
+                            'icon' => 'fa-solid fa-lock'
+                        ]
+                    )
+                </div>
+                <div class="card-footer" style="text-align: center;">
+                    <button type="submit" class="btn btn-fill btn-primary">Alterar Senha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
