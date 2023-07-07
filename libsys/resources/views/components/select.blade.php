@@ -1,5 +1,6 @@
 @php
     $defaultValue = empty($oldValue) ? old($name) : old($name, $oldValue);
+    $arrayKeys = array_keys($arrayValue);
 @endphp
 
 @if (!empty($label)) @include('components.label', ['label' => $label]) @endif
@@ -11,13 +12,13 @@
     </div>
     <select class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}" name="{{ $name }}">
         <option style="background-color: #344675;" value="">Selecione</option>
-        @foreach ($arrayValue as $value)
+        @foreach ($arrayKeys as $key)
         <option
             style="background-color: #344675;"
-            value="{{ $value[$index] }}"
-            {{ $value[$index] == $defaultValue ? 'selected' : '' }}
+            value="{{ $key }}"
+            {{ $key == $defaultValue ? 'selected' : '' }}
         >
-            {{ $value[$key] }}
+            {{ $arrayValue[$key] }}
         </option>
         @endforeach
     </select>
