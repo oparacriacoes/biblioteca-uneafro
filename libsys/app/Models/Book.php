@@ -32,4 +32,41 @@ class Book extends Model
         'ISBN',
         'id_user'
     ];
+
+    /**
+     * Method to list the books
+     * @access public
+     * @param int|null $idBookCopie id of table book_copies
+     * @return array array of book copies
+     */
+    public function lstBook(int $idBookCopie = null)
+    {
+        $query = Book::query()
+            ->select('b.id', 'b.title', 'b.author', 'b.book_publisher', 'b.edition', 'b.volume', 'b.year',
+                'b.number_of_copies', 'bc.reference_book', 'b.ISBN', 'bc.id as idBookCopie')
+            ->from('book as b')
+            ->join('book_copies as bc', 'b.id', '=', 'bc.id_book')
+            ->orderBy('b.title');
+
+        if (!is_null($idBookCopie)) {
+            $query->where('bc.id', '=', $idBookCopie);
+        }
+
+        return $query->get()->toArray();
+    }
+
+    /**
+     * Update the number of copies of the book
+     * @access public
+     * @param int $idBook id of table book
+     * @param int $copies number of copies
+     * @return int new number of copies
+     */
+    public function updNumberOfCopies(int $idBook, int $copies)
+    {
+        $book = Book::findOrFail($idBook);
+        $book->update(['number_of_copies' => $book->number_of_copies + $copies]);
+
+        return $book->number_of_copies;
+    }
 }

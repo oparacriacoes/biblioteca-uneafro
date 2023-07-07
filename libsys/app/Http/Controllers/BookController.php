@@ -17,7 +17,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = $this->lstBook();
+        $books = (new Book())->lstBook();
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($books);
         $arrayIsbn = Book::query()->pluck('isbn')->toArray();
@@ -74,10 +74,11 @@ class BookController extends Controller
     {
         $idBookCopie = unserialize($id);
 
-        $book = ($this->lstBook($idBookCopie))[0];
+        $book = ((new Book())->lstBook($idBookCopie))[0];
 
         $bookCopies = BookCopies::query()->where('id_book', '=', $book['id'])->pluck('id')->toArray();
 
+        $book['numberCopies'] = count($bookCopies);
         $book['bookCopies'] = implode(", ", $bookCopies);
 
         return view('book.edit')->with('book', $book);
@@ -92,24 +93,37 @@ class BookController extends Controller
      */
     public function update(CopieRequest $request, string $id)
     {
-        $requestData = $request->validated();
+        $validatedData = $request->validated();
 
         $book = Book::findOrFail(unserialize($id));
 
         $book->update([
-            'title' => $requestData['title'],
-            'author' => $requestData['author'],
-            'book_publisher' => $requestData['book_publisher'],
-            'edition' => $requestData['edition'],
-            'volume' => $requestData['volume'],
-            'year' => $requestData['year'],
-            'ISBN' => $requestData['ISBN'],
+            'title' => $validatedData['title'],
+            'author' => $validatedData['author'],
+            'book_publisher' => $validatedData['book_publisher'],
+            'edition' => $validatedData['edition'],
+            'volume' => $validatedData['volume'],
+            'year' => $validatedData['year'],
+            'ISBN' => $validatedData['ISBN'],
             'id_user' => auth()->user()->id
         ]);
 
-        return redirect()->route('book.edit', ['book' => $request->input('idBookCopie')])->with(
-            'success', 'Livro editado com sucesso!'
-        );
+        $idBookCopie = $request->input('id_book_copie');
+
+        $bookCopie = BookCopies::findOrFail(unserialize($idBookCopie));
+        $bookCopie->update(['reference_book' => $request->input('reference_book')]);
+
+        if ($validatedData['copies'] > 0) {
+            $modelBookCopies = new BookCopies();
+
+            $modelBookCopies->insBookCopies($book->id, $validatedData['reference_books'], 1);
+            $modelBookCopies->insBookCopies($book->id, $validatedData['copies'] - $validatedData['reference_books']);
+
+            (new Book())->updNumberOfCopies($book->id, $validatedData['copies']);
+        }
+
+        return redirect()->route('book.edit', ['book' => $idBookCopie])
+            ->with('success', 'Livro editado com sucesso!');
     }
 
     /**
@@ -201,28 +215,6 @@ class BookController extends Controller
     }
 
     /**
-     * Method to list the books
-     * @access private
-     * @param int|null $idBookCopie id of table book_copies
-     * @return array array of book copies
-     */
-    private function lstBook($idBookCopie = null)
-    {
-        $query = Book::query()
-            ->select('b.id', 'b.title', 'b.author', 'b.book_publisher', 'b.edition', 'b.volume', 'b.year',
-                'b.number_of_copies', 'bc.reference_book', 'b.ISBN', 'bc.id as idBookCopie')
-            ->from('book as b')
-            ->join('book_copies as bc', 'b.id', '=', 'bc.id_book')
-            ->orderBy('b.title');
-
-        if (!is_null($idBookCopie)) {
-            $query->where('bc.id', '=', $idBookCopie);
-        }
-
-        return $query->get()->toArray();
-    }
-
-    /**
      * Method to insert book and copies
      * @access private
      * @param array $book array with book data
@@ -258,12 +250,9 @@ class BookController extends Controller
             ]);
         }
 
-        for ($i = 0; $i < $numberOfReferenceBooks; $i++) {
-            BookCopies::create(['id_book' => $book->id, 'reference_book' => 1]);
-        }
+        $modelBookCopies = new BookCopies();
 
-        for ($i = 0; $i < $numberOfCopies - $numberOfReferenceBooks; $i++) {
-            BookCopies::create(['id_book' => $book->id]);
-        }
+        $modelBookCopies->insBookCopies($book->id, $numberOfReferenceBooks, 1);
+        $modelBookCopies->insBookCopies($book->id, $numberOfCopies - $numberOfReferenceBooks);
     }
 }
