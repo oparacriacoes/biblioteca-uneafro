@@ -47,7 +47,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        $slMemberType = MemberType::query()->orderBy('type')->get()->toArray();
+        $slMemberType = array_column((new MemberType())->lstMemberType(), 'type', 'id');
 
         return view('member.create')->with('slMemberType', $slMemberType);
     }
@@ -92,8 +92,8 @@ class MemberController extends Controller
      */
     public function edit(string $id)
     {
-        $member = Member::findOrFail(unserialize($id));
-        $slMemberType = MemberType::query()->orderBy('type')->get()->toArray();
+        $member = Member::findOrFail(unserialize($id))->toArray();
+        $slMemberType = array_column((new MemberType())->lstMemberType(), 'type', 'id');
 
         return view('member.edit')->with(['member' => $member, 'slMemberType' => $slMemberType]);
     }
