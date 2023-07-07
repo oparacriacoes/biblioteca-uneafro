@@ -1,22 +1,22 @@
-@if (!empty($label)) <label>{{ $label }}</label> @endif
-@php
-    $type = empty($type) ? 'text' : $type;
-@endphp
+@if (!empty($label)) @include('components.label', ['label' => $label]) @endif
 <div class="input-group{{ $errors->has($name) ? ' has-danger' : '' }}">
+    @if (!empty($icon))
     <div class="input-group-prepend">
         <div class="input-group-text">
             <i class="{{ $icon }}"></i>
         </div>
     </div>
+    @endif
     <input
-        type="{{ $type }}"
+        type="{{ empty($type) ? 'text' : $type }}"
         name="{{ $name }}"
         class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}"
-        placeholder="{{ empty($placeholder) ? $label : $placeholder }}"
-        @if (!empty($type) && $type != 'password')
+        @if (!empty($placeholder)) placeholder="{{ $placeholder }}" @endif
+        @if (empty($type) || (!empty($type) && $type != 'password'))
             value="{{ empty($oldValue) ? old($name) : old($name, $oldValue) }}"
         @endif
         @if (!empty($maxLength)) maxlength="{{ $maxLength }}" @endif
+        @if (!empty($readOnly)) style="background-color: transparent; color: white" readonly="true" @endif
     >
     @include('components.alerts.feedback', ['field' => $name])
 </div>
