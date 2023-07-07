@@ -31,7 +31,7 @@ return [
         'array'   => 'O campo :attribute deve ter entre :min e :max itens.',
     ],
     'boolean'              => 'O campo :attribute deve ser verdadeiro ou falso.',
-    'confirmed'            => 'O campo :attribute de confirmação não confere.',
+    'confirmed'            => 'O campo Confirmar :attribute não confere.',
     'current_password'     => 'A senha está incorreta.',
     'date'                 => 'O campo :attribute não é uma data válida.',
     'date_equals'          => 'O campo :attribute deve ser uma data igual a :date.',
@@ -177,7 +177,7 @@ return [
         'password_confirmation' => 'Confirmar Senha',
         'current_password' => 'Senha Atual',
         'old_password' => 'Senha Atual',
-        'id_member_type' => 'Selecione o tipo do membro',
+        'id_member_type' => 'Tipo',
         'phone' => 'Telefone',
         'full_name' => 'Nome Completo',
         'title' => 'Título do Livro',
@@ -188,6 +188,8 @@ return [
         'year' => 'Ano',
         'number_of_copies' => 'Número de Cópias',
         'number_of_reference_book' => 'Número de Livros de Referência',
-        'ISBN' => 'ISBN'
+        'ISBN' => 'ISBN',
+        'copies' => 'Quantidade de Cópias',
+        'reference_books' => 'Quantidade de Referência'
     ]
 ];
