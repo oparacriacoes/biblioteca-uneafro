@@ -54,7 +54,10 @@
                                     [
                                         'label' => 'Tipo',
                                         'name' => 'id_member_type',
-                                        'slMemberType' => $slMemberType,
+                                        'message' => 'Selecione o tipo do membro',
+                                        'arrayValue' => $slMemberType,
+                                        'index' => 'id',
+                                        'key' => 'type',
                                         'oldValue' => $member->id_member_type,
                                         'icon' => 'fa-solid fa-graduation-cap'
                                     ]
