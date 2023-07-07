@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form class="form" method="post" action="{{ route('member.update', serialize($member->id)) }}">
+                <form class="form" method="post" action="{{ route('member.update', serialize($member['id'])) }}">
                     <div class="card-body">
                         @csrf
                         @method('put')
@@ -28,7 +28,7 @@
                                         'placeholder' => 'Nome Completo',
                                         'name' => 'full_name',
                                         'maxLength' => 50,
-                                        'oldValue' => $member->full_name,
+                                        'oldValue' => $member['full_name'],
                                         'icon' => 'fa-regular fa-user'
                                     ]
                                 )
@@ -41,7 +41,7 @@
                                         'placeholder' => 'Email',
                                         'name' => 'email',
                                         'maxLength' => 50,
-                                        'oldValue' => $member->email,
+                                        'oldValue' => $member['email'],
                                         'icon' => 'fa-regular fa-envelope'
                                     ]
                                 )
@@ -55,9 +55,7 @@
                                         'label' => 'Tipo',
                                         'name' => 'id_member_type',
                                         'arrayValue' => $slMemberType,
-                                        'index' => 'id',
-                                        'key' => 'type',
-                                        'oldValue' => $member->id_member_type,
+                                        'oldValue' => $member['id_member_type'],
                                         'icon' => 'fa-solid fa-graduation-cap'
                                     ]
                                 )
@@ -70,7 +68,7 @@
                                         'placeholder' => 'Telefone',
                                         'name' => 'phone',
                                         'maxLength' => 11,
-                                        'oldValue' => $member->phone,
+                                        'oldValue' => $member['phone'],
                                         'icon' => 'fas fa-phone'
                                     ]
                                 )
@@ -83,7 +81,7 @@
                                         'placeholder' => 'CPF',
                                         'name' => 'cpf',
                                         'maxLength' => 11,
-                                        'oldValue' => $member->cpf,
+                                        'oldValue' => $member['cpf'],
                                         'icon' => 'fa-regular fa-address-card'
                                     ]
                                 )

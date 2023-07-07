@@ -52,8 +52,6 @@
                                         'label' => 'Tipo',
                                         'name' => 'id_member_type',
                                         'arrayValue' => $slMemberType,
-                                        'index' => 'id',
-                                        'key' => 'type',
                                         'icon' => 'fa-solid fa-graduation-cap'
                                     ]
                                 )
