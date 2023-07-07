@@ -25,6 +25,8 @@ class CopieRequest extends FormRequest
      */
     public function rules()
     {
+        $id = unserialize($this->route('book'));
+
         return [
             'title' => ['required', 'string', 'max:50'],
             'author' => ['required', 'string', 'max:50'],
@@ -32,8 +34,16 @@ class CopieRequest extends FormRequest
             'edition' => ['required', 'integer'],
             'volume' => ['required', 'integer'],
             'year' => ['required', 'integer'],
-            'ISBN' => ['required', 'integer', 'min_digits:10',
-                Rule::unique((new Book())->getTable())->ignore(auth()->id())]
+            'copies' => ['nullable', 'integer', 'min:1'],
+            'reference_books' => ['nullable', 'integer', 'min:0',
+                function ($attribute, $value, $fail) {
+                    $numberOfCopies = $this->input('copies');
+                    if ($value > $numberOfCopies) {
+                        $fail('O número de livros de referência deve ser menor que o número de cópias.');
+                    }
+                },
+            ],
+            'ISBN' => ['required', 'integer', 'min_digits:10', Rule::unique((new Book())->getTable())->ignore($id)]
         ];
     }
 }
