@@ -10,7 +10,7 @@
         </div>
     </div>
     <select class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}" name="{{ $name }}">
-        <option style="background-color: #344675;" value="">{{ $message }}</option>
+        <option style="background-color: #344675;" value="">Selecione</option>
         @foreach ($arrayValue as $value)
         <option
             style="background-color: #344675;"

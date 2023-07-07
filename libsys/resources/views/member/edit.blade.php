@@ -54,7 +54,6 @@
                                     [
                                         'label' => 'Tipo',
                                         'name' => 'id_member_type',
-                                        'message' => 'Selecione o tipo do membro',
                                         'arrayValue' => $slMemberType,
                                         'index' => 'id',
                                         'key' => 'type',
