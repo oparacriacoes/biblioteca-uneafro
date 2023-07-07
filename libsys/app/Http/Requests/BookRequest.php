@@ -41,8 +41,7 @@ class BookRequest extends FormRequest
                     }
                 },
             ],
-            'ISBN' => ['required', 'integer', 'min_digits:10',
-                Rule::unique((new Book())->getTable())->ignore(auth()->id())]
+            'ISBN' => ['required', 'integer', 'min_digits:10', 'unique:book']
         ];
     }
 }
