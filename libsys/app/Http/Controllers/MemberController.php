@@ -17,7 +17,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = $this->lstMember();
+        $members = (new Member())->lstMember();
 
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($members);
@@ -202,21 +202,5 @@ class MemberController extends Controller
         }
 
         return $arrayData;
-    }
-
-    /**
-     * Method to list the members
-     * @access private
-     * @return array array of members
-     */
-    private function lstMember()
-    {
-        return Member::query()
-            ->select('m.id', 'm.full_name', 'm.email', 'm.phone', 'm.cpf', 'mt.type')
-            ->from('member as m')
-            ->join('member_type as mt', 'm.id_member_type', '=', 'mt.id')
-            ->orderBy('full_name')
-            ->get()
-            ->toArray();
     }
 }
