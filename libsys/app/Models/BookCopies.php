@@ -22,4 +22,18 @@ class BookCopies extends Model
      * @var array<int, string>
      */
     protected $fillable = ['id_book', 'reference_book', 'loaned'];
+
+    /**
+     * Method to insert book copies
+     * @access public
+     * @param int $idBook id of book
+     * @param int $numberOfCopies number of copies
+     * @param int $reference information of about book
+     */
+    public function insBookCopies($idBook, $numberOfCopies, $reference = 0)
+    {
+        for ($i = 0; $i < $numberOfCopies; $i++) {
+            BookCopies::create(['id_book' => $idBook, 'reference_book' => $reference]);
+        }
+    }
 }
