@@ -96,8 +96,7 @@ class UserController extends Controller
             'cpf' => $validatedData['cpf']
         ]);
 
-        return redirect()
-            ->route('user.edit', ['user' => serialize(auth()->user()->id)])
+        return redirect()->route('user.edit', ['user' => serialize(auth()->user()->id)])
             ->with('success', 'Usuário editado com sucesso!');
     }
 
@@ -118,7 +117,7 @@ class UserController extends Controller
     /**
      * Change the password
      * @access public
-     * @param  \App\Http\Requests\PasswordRequest  $request
+     * @param PasswordRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function password(PasswordRequest $request)
@@ -129,8 +128,7 @@ class UserController extends Controller
 
         $user->update(['password' => Hash::make($validatedData['password'])]);
 
-        return redirect()
-            ->route('user.edit', ['user' => serialize(auth()->user()->id)])
+        return redirect()->route('user.edit', ['user' => serialize(auth()->user()->id)])
             ->with('password_status', 'Senha atualizada com sucesso!');
     }
 
@@ -158,7 +156,13 @@ class UserController extends Controller
                 'user' => $user['name'] . ' ' . $user['last_name'],
                 'email' => $user['email'],
                 'cpf' => $this->formatCpf($user['cpf']),
-                'delete' => $this->getIconDelete('user', $user['id'], 'Excluir Usuário')
+                'delete' => $this->getIconDelete(
+                    $user['id'],
+                    'delete_user',
+                    'user',
+                    'Excluir Usuário',
+                    'Você realmente deseja excluir este usuário?'
+                )
             ];
         }
 

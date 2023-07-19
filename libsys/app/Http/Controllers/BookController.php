@@ -122,8 +122,7 @@ class BookController extends Controller
             (new Book())->updNumberOfCopies($book->id, $validatedData['copies']);
         }
 
-        return redirect()->route('book.edit', ['book' => $idBookCopie])
-            ->with('success', 'Livro editado com sucesso!');
+        return redirect()->route('book.edit', ['book' => $idBookCopie])->with('success', 'Livro editado com sucesso!');
     }
 
     /**
@@ -206,8 +205,14 @@ class BookController extends Controller
                 'number_of_copies' => $book['number_of_copies'],
                 'reference_book' => $book['reference_book'] ? 'Sim' : 'Não',
                 'ISBN' => $book['ISBN'],
-                'edit' => $this->getIconEdit('book', serialize($book['idBookCopie'])),
-                'delete' => $this->getIconDelete('book_copies', $book['idBookCopie'], 'Excluir Livro')
+                'edit' => $this->getIconEdit(serialize($book['idBookCopie']), 'book'),
+                'delete' => $this->getIconDelete(
+                    $book['idBookCopie'],
+                    'delete_book',
+                    'book_copies',
+                    'Excluir Livro',
+                    'Você realmente deseja excluir este livro?'
+                )
             ];
         }
 

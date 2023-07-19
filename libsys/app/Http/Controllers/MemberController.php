@@ -196,8 +196,14 @@ class MemberController extends Controller
                 'email' => $member['email'],
                 'phone' => $member['phone'],
                 'cpf' => !is_null($member['cpf']) ? $this->formatCpf($member['cpf']) : '',
-                'edit' => $this->getIconEdit('member', serialize($member['id'])),
-                'delete' => $this->getIconDelete('member', $member['id'], 'Excluir Membro')
+                'edit' => $this->getIconEdit(serialize($member['id']), 'member'),
+                'delete' => $this->getIconDelete(
+                    $member['id'],
+                    'delete_member',
+                    'member',
+                    'Excluir Membro',
+                    'Você realmente deseja excluir este membro?'
+                )
             ];
         }
 
