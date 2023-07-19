@@ -11,13 +11,21 @@
             </div>
             <form class="form" method="post" action="{{ $route }}">
                 @csrf
-                @method('delete')
+                @method($method)
                 <div class="modal-body">
-                    <div class="alert">Você realmente deseja excluir este registro?</div>
+                    <div class="alert">{{ $message }}</div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" aria-hidden="true">Excluir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                        Cancelar
+                    </button>
+                    @if ($method == 'put')
+                        <button type="submit" class="btn btn-primary" aria-hidden="true">
+                            Confirmar
+                        </button>
+                    @else
+                        <button type="submit" class="btn btn-danger" aria-hidden="true">Excluir</button>
+                    @endif
                 </div>
             </form>
         </div>

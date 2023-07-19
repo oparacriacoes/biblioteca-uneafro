@@ -9,10 +9,13 @@
         </thead>
         <tbody>
             @foreach ($arrayData as $data)
+                @php $arrayModal = []; @endphp
+
                 <tr>
                     @foreach ($data as $value)
                         <td class="text-center">
                             @if (is_array($value))
+                                @php $arrayModal[] = $value; @endphp
                                 @include('components.icon', $value)
                             @else
                                 {{ $value }}
@@ -20,17 +23,23 @@
                         </td>
                     @endforeach
                 </tr>
-                @if ($data['delete'])
-                    @include(
-                        'components.modal_delete',
-                        [
-                            'userId' => $data['delete']['id'],
-                            'title' => $data['delete']['title'],
-                            'idModal' => substr($data['delete']['target'], 1),
-                            'route' => $data['delete']['route']
-                        ]
-                    )
-                @endif
+
+                @foreach ($arrayModal as $modal)
+                    @if (!empty($modal['target']))
+                        @include(
+                            'components.modal_confirm',
+                            [
+                                'userId' => $modal['id'],
+                                'title' => $modal['title'],
+                                'idModal' => substr($modal['target'], 1),
+                                'route' => $modal['route'],
+                                'method' => $modal['method'],
+                                'message' => $modal['message']
+                            ]
+                        )
+                    @endif
+                @endforeach
+
             @endforeach
         </tbody>
     </table>
