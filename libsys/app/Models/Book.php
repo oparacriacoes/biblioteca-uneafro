@@ -37,19 +37,26 @@ class Book extends Model
      * Method to list the books
      * @access public
      * @param int|null $idBookCopie id of table book_copies
+     * @param bool $forLoan
      * @return array array of book copies
      */
-    public function lstBook(int $idBookCopie = null)
+    public function lstBook(int $idBookCopie = null, bool $forLoan = false)
     {
         $query = Book::query()
-            ->select('b.id', 'b.title', 'b.author', 'b.book_publisher', 'b.edition', 'b.volume', 'b.year',
-                'b.number_of_copies', 'bc.reference_book', 'b.ISBN', 'bc.id as idBookCopie')
+            ->selectRaw("b.id, b.title, b.author, b.book_publisher, b.edition, b.volume, b.year,
+                b.number_of_copies, bc.reference_book, b.ISBN, bc.id as idBookCopie,
+                CONCAT(bc.id, ' - ', b.title) AS bookDescription"
+            )
             ->from('book as b')
             ->join('book_copies as bc', 'b.id', '=', 'bc.id_book')
             ->orderBy('b.title');
 
         if (!is_null($idBookCopie)) {
             $query->where('bc.id', '=', $idBookCopie);
+        }
+
+        if ($forLoan) {
+            $query->where('bc.loaned', '=', 0)->where('bc.reference_book', '=', 0);
         }
 
         return $query->get()->toArray();
