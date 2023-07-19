@@ -1,6 +1,6 @@
 @php
     $book = in_array($pageSlug, ['book_control', 'create_book', 'edit_book']) ? 'true' : 'false';
-    $loan = in_array($pageSlug, ['loan_control', 'make_loan']) ? 'true' : 'false';
+    $loan = in_array($pageSlug, ['loan_config', 'loan_control', 'make_loan']) ? 'true' : 'false';
     $member = in_array($pageSlug, ['member_control', 'create_member', 'edit_member']) ? 'true' : 'false';
     $user = in_array($pageSlug, ['user_control', 'create_user', 'edit_user']) ? 'true' : 'false';
 @endphp
@@ -26,10 +26,16 @@
                 </a>
                 <div class="{{ $loan == 'true' ? 'collapse show' : 'collapse' }}" id="loan">
                     <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'loan_config') class="active" @endif>
+                            <a href="{{ route('loan_term.create') }}">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Configurações</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug == 'loan_control') class="active" @endif>
                             <a href="{{ route('loan.index') }}">
-                                <i class="fa-solid fa-rotate-left"></i>
-                                <p>Devolução</p>
+                                <i class="fa-solid fa-book-open-reader"></i>
+                                <p>Controle de Empréstimos</p>
                             </a>
                         </li>
                         <li @if ($pageSlug == 'make_loan') class="active" @endif>
