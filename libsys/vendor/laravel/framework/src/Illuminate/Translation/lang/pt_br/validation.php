@@ -190,6 +190,11 @@ return [
         'number_of_reference_book' => 'Número de Livros de Referência',
         'ISBN' => 'ISBN',
         'copies' => 'Quantidade de Cópias',
-        'reference_books' => 'Quantidade de Referência'
+        'reference_books' => 'Quantidade de Referência',
+        'slMember' => 'Membro',
+        'slBook' => 'Livro',
+        'days_student' => 'Dias de empréstimo para aluno',
+        'days_teacher' => 'Dias de empréstimo para professor',
+        'max_renovations' => 'Número máximo de renovações'
     ]
 ];
