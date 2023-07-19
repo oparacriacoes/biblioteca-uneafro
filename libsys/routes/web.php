@@ -8,6 +8,7 @@ use App\Http\Controllers\BookCopiesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\LoanTermController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,10 +41,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('book', BookController::class);
     Route::resource('book_copies', BookCopiesController::class);
     Route::resource('loan', LoanController::class);
+    Route::resource('loan_term', LoanTermController::class);
     Route::resource('member', MemberController::class);
     Route::resource('user', UserController::class);
 
     Route::post('/book_import', [BookController::class, 'import'])->name('book.import');
     Route::post('/member_import', [MemberController::class, 'import'])->name('member.import');
+
+    Route::put('/loan_return/{id}', [LoanController::class, 'return'])->name('loan.return');
     Route::put('/user_password', [UserController::class, 'password'])->name('user.password');
 });
