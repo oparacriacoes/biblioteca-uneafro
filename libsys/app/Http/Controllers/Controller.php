@@ -38,38 +38,100 @@ class Controller extends BaseController
     }
 
     /**
-     * Method to get the edit icon
-     * @access private
-     * @param string $route
+     * Method to return the date in br format if is not null
+     * @access protected
+     * @param string $date
+     * @return string
+     */
+    protected function getDateBr(string $date)
+    {
+        return date('d/m/Y', strtotime($date));
+    }
+
+    /**
+     * Method to get an icon to a new page
+     * @access protected
      * @param string $id
+     * @param string $route
+     * @param string $method
+     * @param string $icon
      * @return array
      */
-    protected function getIconEdit(string $route, string $id)
+    protected function getIconNewPage(string $id, string $route, string $method, string $icon)
     {
         return [
             'id' => $id,
-            'route' => $route . '/' . $id . '/edit',
-            'icon' => 'text-info fa-regular fa-pen-to-square'
+            'route' => $route . '/' . $id . '/' . $method,
+            'icon' => $icon
         ];
     }
 
     /**
-     * Method to get the delete icon
-     * @access private
-     * @param string $route
+     * Method to get an icon to a modal
+     * @access protected
      * @param string $id
+     * @param string $modalName
+     * @param string $route
      * @param string $title
+     * @param string $message
+     * @param string $icon
+     * @param string $httpMethod
      * @return array
      */
-    protected function getIconDelete(string $route, string $id, string $title)
+    protected function getIconModal(
+        string $id,
+        string $modalName,
+        string $route,
+        string $title,
+        string $message,
+        string $icon,
+        string $httpMethod
+    )
     {
         return [
             'id' => $id,
             'title' => $title,
-            'target' => '#delete_' . $route . '_' . $id,
+            'target' => '#' . $modalName . '_' . $id,
             'route' => $route . '/' . serialize($id),
-            'icon' => 'text-primary fa-solid fa-trash-can',
-            'dataToggle' => 'modal'
+            'icon' => $icon,
+            'dataToggle' => 'modal',
+            'method' => $httpMethod,
+            'message' => $message
         ];
+    }
+
+    /**
+     * Method to get the edit icon
+     * @access protected
+     * @param string $id
+     * @param string $route
+     * @return array
+     */
+    protected function getIconEdit(string $id, string $route)
+    {
+        return $this->getIconNewPage($id, $route, 'edit', 'text-info fa-regular fa-pen-to-square');
+    }
+
+    /**
+     * Method to get the delete icon
+     * @access protected
+     * @param string $id
+     * @param string $modalName
+     * @param string $route
+     * @param string $title
+     * @param string $message
+     * @return array
+     */
+    protected function getIconDelete(string $id, string $modalName, string $route, string $title, string $message)
+    {
+        return $this->getIconModal(
+            $id,
+            $modalName,
+            $route,
+            $title,
+            $message,
+            'text-primary fa-solid fa-trash-can',
+            'delete'
+        );
     }
 }
