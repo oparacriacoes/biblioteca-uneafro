@@ -10,7 +10,7 @@
             <i class="{{ $icon }}"></i>
         </div>
     </div>
-    <select class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}" name="{{ $name }}">
+    <select id="{{ $id }}" name="{{ $name }}" class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}">
         <option style="background-color: #344675;" value="">Selecione</option>
         @foreach ($arrayKeys as $key)
         <option
