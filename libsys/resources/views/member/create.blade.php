@@ -49,6 +49,7 @@
                                 @include(
                                     'components.select',
                                     [
+                                        'id' => 'id_member_type',
                                         'label' => 'Tipo',
                                         'name' => 'id_member_type',
                                         'arrayValue' => $slMemberType,
