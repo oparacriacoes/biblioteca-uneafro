@@ -45,7 +45,7 @@
                                 )
                             </div>
                             <div class="col-md-3" style="margin-top: 25px">
-                                <button id="btnShowVideo" class="btn btn-primary btn-round btn-sm">
+                                <button id="btnShowVideo" type="button" class="btn btn-primary btn-round btn-sm">
                                     Ler QR Code / Código de Barras
                                 </button>
                             </div>
@@ -53,8 +53,8 @@
                         <br><br>
                         <div class="row">
                             <div class="col-md-9">
-                                <div id="videoContainer" style="margin-left: 340px; display: none;">
-                                    <video id="preview" width="90%"></video>
+                                <div id="divLerQrCode" style="display: none;">
+                                    <video id="preview"></video>
                                 </div>
                             </div>
                         </div>
