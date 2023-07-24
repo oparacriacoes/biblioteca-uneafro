@@ -25,7 +25,7 @@
                 </tr>
 
                 @foreach ($arrayModal as $modal)
-                    @if (!empty($modal['target']))
+                    @if (!empty($modal['dataToggle']))
                         @include(
                             'components.modal_confirm',
                             [
