@@ -2,36 +2,48 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    let scanner;
-    let videoContainer = document.getElementById('videoContainer');
-    let btnShowVideo = document.getElementById('btnShowVideo');
+    var scanner = null;
+    var isScannerVisible = false;
 
     function initializeScanner() {
-        scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[0]);
-                videoContainer.style.display = 'block'; // Exibe o vídeo quando a câmera estiver disponível
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (e) {
-            console.error(e);
-        });
-
-        scanner.addListener('scan', function (content) {
-            document.getElementById('slBook').value = content;
-        });
+        if (scanner != null) {
+            scanner.stop();
+            scanner = null;
+            isScannerVisible = false;
+            document.getElementById('divLerQrCode').style = "display: none;"
+        } else {
+            scanner = new Instascan.Scanner({video: document.getElementById('preview'), mirror: false});
+            scanner.addListener('scan', function (content) {
+                document.getElementById('slBook').value = content;
+                scanner.stop();
+                document.getElementById('divLerQrCode').style.display = "none";
+            });
+            isScannerVisible = true;
+            document.getElementById("divLerQrCode").style = "margin-left: 300px; display: block;"
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length == 1) {
+                    scanner.start(cameras[0]);
+                } else if (cameras.length > 1) {
+                    cameras.forEach(selecionarCameraTraseira);
+                } else {
+                    console.log("Dispositivo não possui câmera.");
+                }
+            }).catch(function (e) {
+                console.error(e);
+                alert("Dispositivo não possui câmera.");
+                document.getElementById("divLerQrCode").style = "margin-left: 300px; display: block;"
+            });
+        }
     }
 
-    // Ao clicar no botão, inicializa o scanner e exibe o vídeo
-    btnShowVideo.addEventListener('click', function () {
-        initializeScanner();
-    });
+    function selecionarCameraTraseira(element) {
+        if (element.name.match(/back/) && !element.name.match(/camera2 3, facing back/)) {
+            scanner.start(element);
+        }
+    }
 
-    // Inicializa o scanner automaticamente quando a página é carregada
-    $(document).ready(function() {
+    document.getElementById("btnShowVideo").addEventListener('click', function () {
+        event.preventDefault();
         initializeScanner();
     });
 </script>
