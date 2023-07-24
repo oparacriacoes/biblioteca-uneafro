@@ -180,7 +180,8 @@ class BookController extends Controller
             'Livro de Referência',
             'ISBN',
             'Editar',
-            'Excluir'
+            'Excluir',
+            'Gerar Etiqueta'
         ];
     }
 
@@ -212,7 +213,8 @@ class BookController extends Controller
                     'book_copies',
                     'Excluir Livro',
                     'Você realmente deseja excluir este livro?'
-                )
+                ),
+                'tag' => $this->getIconNewPage(serialize($book['idBookCopie']), 'generateTag', '', 'fa fa-file-pdf', '_blank')
             ];
         }
 
