@@ -55,14 +55,16 @@ class Controller extends BaseController
      * @param string $route
      * @param string $method
      * @param string $icon
+     * @param string $target
      * @return array
      */
-    protected function getIconNewPage(string $id, string $route, string $method, string $icon)
+    protected function getIconNewPage(string $id, string $route, string $method, string $icon, string $target = null)
     {
         return [
             'id' => $id,
             'route' => $route . '/' . $id . '/' . $method,
-            'icon' => $icon
+            'icon' => $icon,
+            'target' => $target
         ];
     }
 
