@@ -13,6 +13,7 @@
                     <div class="col-6 text-right">
                         <a href="{{ route('book.create') }}" class="btn btn-sm btn-primary">Adicionar Livro</a>
                         <a href="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Livros</a>
+                        <a href="generateTag" target="_blank" class="btn btn-sm btn-primary">Gerar Etiquetas</a>
                     </div>
                 </div>
             </div>
