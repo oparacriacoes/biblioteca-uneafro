@@ -37,11 +37,6 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Confirmar</button>
-                    <div class="pull-right">
-                        <h6>
-                            <a href="{{ route('password.request') }}" class="link footer-link">Esqueceu a senha?</a>
-                        </h6>
-                    </div>
                 </div>
             </div>
         </form>
