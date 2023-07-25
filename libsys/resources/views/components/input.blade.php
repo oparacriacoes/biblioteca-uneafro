@@ -10,6 +10,7 @@
     <input
         type="{{ empty($type) ? 'text' : $type }}"
         name="{{ $name }}"
+        id="{{ empty($id) ? $name : $id }}"
         class="form-control{{ $errors->has($name) ? ' is-invalid' : '' }}"
         @if (!empty($placeholder)) placeholder="{{ $placeholder }}" @endif
         @if (empty($type) || (!empty($type) && $type != 'password'))
