@@ -164,6 +164,18 @@
                     });
                 });
             });
+
+            // Funcao para filtrar os resultados da tabela conforme o que e digitado na caixa de pesquisa
+            $(document).ready(function () {
+                $("#searchInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    // Filtra apenas as linhas do corpo da tabela, ignorando o cabecalho
+                    $("table tbody tr").each(function () {
+                        var rowText = $(this).text().toLowerCase();
+                        $(this).toggle(rowText.indexOf(value) > -1);
+                    });
+                });
+            });
         </script>
         @stack('js')
     </body>
