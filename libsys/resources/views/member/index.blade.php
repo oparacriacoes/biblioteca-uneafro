@@ -10,7 +10,19 @@
                     <div class="col-6">
                         <h4 class="card-title">Membros</h4>
                     </div>
-                    <div class="col-6 text-right">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-8">
+                        @include(
+                            'components.input',
+                            [
+                                'name' => 'searchInput',
+                                'placeholder' => 'Pesquisar Membros',
+                                'icon' => 'fa-solid fa-magnifying-glass'
+                            ]
+                        )
+                    </div>
+                    <div class="col-4 text-right">
                         <a href="{{ route('member.create') }}" class="btn btn-sm btn-primary">Adicionar Membro</a>
                         <a data-target="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Membros</a>
                     </div>

@@ -10,7 +10,19 @@
                     <div class="col-4">
                         <h4 class="card-title">Controle de Usuários</h4>
                     </div>
-                    <div class="col-8 text-right">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-10">
+                        @include(
+                            'components.input',
+                            [
+                                'name' => 'searchInput',
+                                'placeholder' => 'Pesquisar Usuário',
+                                'icon' => 'fa-solid fa-magnifying-glass'
+                            ]
+                        )
+                    </div>
+                    <div class="col-2 text-right">
                         <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Adicionar Usuário</a>
                     </div>
                 </div>

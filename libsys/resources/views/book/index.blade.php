@@ -10,7 +10,19 @@
                     <div class="col-6">
                         <h4 class="card-title">Livros</h4>
                     </div>
-                    <div class="col-6 text-right">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-7">
+                        @include(
+                            'components.input',
+                            [
+                                'name' => 'searchInput',
+                                'placeholder' => 'Pesquisar Livro',
+                                'icon' => 'fa-solid fa-magnifying-glass'
+                            ]
+                        )
+                    </div>
+                    <div class="col-5 text-right">
                         <a href="{{ route('book.create') }}" class="btn btn-sm btn-primary">Adicionar Livro</a>
                         <a href="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Livros</a>
                         <a href="generateTag" target="_blank" class="btn btn-sm btn-primary">Gerar Etiquetas</a>
