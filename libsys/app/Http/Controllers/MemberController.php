@@ -196,7 +196,7 @@ class MemberController extends Controller
                 'email' => $member['email'],
                 'phone' => $member['phone'],
                 'cpf' => !is_null($member['cpf']) ? $this->formatCpf($member['cpf']) : '',
-                'edit' => $this->getIconEdit(serialize($member['id']), 'member'),
+                'edit' => $this->getIconEdit(serialize($member['id']), 'member', 'Editar Membro'),
                 'delete' => $this->getIconDelete(
                     $member['id'],
                     'delete_member',

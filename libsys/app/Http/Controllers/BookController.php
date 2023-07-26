@@ -206,7 +206,7 @@ class BookController extends Controller
                 'number_of_copies' => $book['number_of_copies'],
                 'reference_book' => $book['reference_book'] ? 'Sim' : 'Não',
                 'ISBN' => $book['ISBN'],
-                'edit' => $this->getIconEdit(serialize($book['idBookCopie']), 'book'),
+                'edit' => $this->getIconEdit(serialize($book['idBookCopie']), 'book', 'Editar Livro'),
                 'delete' => $this->getIconDelete(
                     $book['idBookCopie'],
                     'delete_book',
@@ -214,7 +214,14 @@ class BookController extends Controller
                     'Excluir Livro',
                     'Você realmente deseja excluir este livro?'
                 ),
-                'tag' => $this->getIconNewPage(serialize($book['idBookCopie']), 'generateTag', '', 'fa fa-file-pdf', '_blank')
+                'tag' => $this->getIconNewPage(
+                    serialize($book['idBookCopie']),
+                    'generateTag',
+                    '',
+                    'fa fa-file-pdf',
+                    '_blank',
+                    'Gerar etiqueta'
+                )
             ];
         }
 
