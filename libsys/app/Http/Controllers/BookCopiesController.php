@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookCopies;
+use App\Models\Loan;
 use Illuminate\Http\Request;
 
 class BookCopiesController extends Controller
@@ -77,24 +78,34 @@ class BookCopiesController extends Controller
      */
     public function destroy(string $id)
     {
-        $bookCopie = BookCopies::findOrFail(unserialize($id));
+        $idBookCopie = unserialize($id);
 
-        $idBook = $bookCopie->id_book;
+        if (empty((new Loan())->lstLoan(idBookCopie: $idBookCopie))) {
+            $bookCopie = BookCopies::findOrFail($idBookCopie);
 
-        $bookCopie->delete();
+            $idBook = $bookCopie->id_book;
 
-        $book = new Book();
-        $copies = $book->updNumberOfCopies($idBook, -1);
+            Loan::where('id_book_copies', $idBookCopie)->delete();
+            $bookCopie->delete();
 
-        if ($copies == 0) {
-            $book = Book::findOrFail($idBook);
-            $book->delete();
+            $book = new Book();
+            $copies = $book->updNumberOfCopies($idBook, -1);
 
-            $msg = 'Livro excluído com sucesso!';
-        } else {
-            $msg = 'Cópia excluída com sucesso!';
+            if ($copies == 0) {
+                $book = Book::findOrFail($idBook);
+                $book->delete();
+
+                $msg = 'Livro excluído com sucesso!';
+            } else {
+                $msg = 'Cópia excluída com sucesso!';
+            }
+
+            return redirect()->route('book.index')->with('success', $msg);
         }
 
-        return redirect()->route('book.index')->with('success', $msg);
+        return redirect()->route('book.index')->with([
+            'success' => 'Não foi possível excluir, o livro está emprestado.',
+            'alert' => 'alert-warning'
+        ]);
     }
 }
