@@ -38,9 +38,11 @@ class Loan extends Model
      * Method to list the loans
      * @access public
      * @param string $idLoan
+     * @param string $idMember
+     * @param string $idBookCopie
      * @return array array of loans
      */
-    public function lstLoan(string $idLoan = null)
+    public function lstLoan(string $idLoan = null, string $idMember = null, string $idBookCopie = null)
     {
         $query = Loan::query()
             ->select('l.id', 'l.loan_date', 'l.devolution_date', 'l.return_date', 'm.full_name', 'b.title', 'b.ISBN',
@@ -54,6 +56,14 @@ class Loan extends Model
 
         if (!is_null($idLoan)) {
             $query->where('l.id', '=', $idLoan);
+        }
+
+        if (!is_null($idMember)) {
+            $query->where('l.id_member', '=', $idMember);
+        }
+
+        if (!is_null($idBookCopie)) {
+            $query->where('l.id_book_copies', '=', $idBookCopie);
         }
         
         return $query->get()->toArray();
