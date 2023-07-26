@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
+use App\Models\Loan;
 use App\Models\Member;
 use App\Models\MemberType;
 use App\Models\User;
@@ -131,10 +132,21 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        $member = Member::findOrFail(unserialize($id));
-        $member->delete();
+        $idMember = unserialize($id);
 
-        return redirect()->route('member.index')->with('success', 'Membro excluído com sucesso!');
+        if (empty((new Loan())->lstLoan(idMember: $idMember))) {
+            Loan::where('id_member', $idMember)->delete();
+            
+            $member = Member::findOrFail($idMember);
+            $member->delete();
+    
+            return redirect()->route('member.index')->with('success', 'Membro excluído com sucesso!');
+        }
+
+        return redirect()->route('member.index')->with([
+            'success' => 'Não foi possível excluir, o membro está com um livro emprestado.',
+            'alert' => 'alert-warning'
+        ]);
     }
 
     /**
