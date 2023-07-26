@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-7">
+                    <div class="col-md-6">
                         @include(
                             'components.input',
                             [
@@ -22,10 +22,10 @@
                             ]
                         )
                     </div>
-                    <div class="col-5 text-right">
+                    <div class="col-md-6 text-right">
                         <a href="{{ route('book.create') }}" class="btn btn-sm btn-primary">Adicionar Livro</a>
                         <a href="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Livros</a>
-                        <a href="generateTag" target="_blank" class="btn btn-sm btn-primary">Gerar Etiquetas</a>
+                        <a href="generateTag" target="_blank" title="Gerar todas as etiquetas" class="btn btn-sm btn-primary">Gerar Etiquetas</a>
                     </div>
                 </div>
             </div>

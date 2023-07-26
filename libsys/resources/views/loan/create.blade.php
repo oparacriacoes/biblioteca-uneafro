@@ -17,7 +17,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-11">
                                 @include(
                                     'components.select',
                                     [
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 @include(
                                     'components.select',
                                     [
@@ -44,7 +44,7 @@
                                     ]
                                 )
                             </div>
-                            <div class="col-md-3" style="margin-top: 25px">
+                            <div class="col-md-4" style="margin-top: 25px">
                                 <button id="btnShowVideo" type="button" class="btn btn-primary btn-round btn-sm">
                                     Ler QR Code / Código de Barras
                                 </button>

@@ -12,17 +12,17 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-8">
+                    <div class="col-md-7">
                         @include(
                             'components.input',
                             [
                                 'name' => 'searchInput',
-                                'placeholder' => 'Pesquisar Membros',
+                                'placeholder' => 'Pesquisar Membro',
                                 'icon' => 'fa-solid fa-magnifying-glass'
                             ]
                         )
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-md-5 text-right">
                         <a href="{{ route('member.create') }}" class="btn btn-sm btn-primary">Adicionar Membro</a>
                         <a data-target="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Membros</a>
                     </div>

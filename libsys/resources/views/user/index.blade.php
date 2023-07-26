@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-10">
+                    <div class="col-md-9">
                         @include(
                             'components.input',
                             [
@@ -22,7 +22,7 @@
                             ]
                         )
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-3 text-right">
                         <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Adicionar Usuário</a>
                     </div>
                 </div>
