@@ -1,7 +1,7 @@
-@if (!empty($title))
-    <a title="{{ $title }}" data-target="{{ $target }}" data-toggle="{{ $dataToggle }}">
+@if (!empty($dataTarget))
+    <a title="{{ $title }}" data-target="{{ $dataTarget }}" data-toggle="{{ $dataToggle }}">
 @else
-    <a href="{{ $route }}" @if (!empty($target)) target="{{ $target }}" @endif>
+    <a title="{{ $title }}" href="{{ $route }}" @if (!empty($target)) target="{{ $target }}" @endif>
 @endif
     <i class="{{ $icon }}"></i>
 </a>
