@@ -56,15 +56,24 @@ class Controller extends BaseController
      * @param string $method
      * @param string $icon
      * @param string $target
+     * @param string $title
      * @return array
      */
-    protected function getIconNewPage(string $id, string $route, string $method, string $icon, string $target = null)
+    protected function getIconNewPage(
+        string $id,
+        string $route,
+        string $method,
+        string $icon,
+        string $target = null,
+        string $title = null
+    )
     {
         return [
             'id' => $id,
             'route' => $route . '/' . $id . '/' . $method,
             'icon' => $icon,
-            'target' => $target
+            'target' => $target,
+            'title' => $title
         ];
     }
 
@@ -93,7 +102,7 @@ class Controller extends BaseController
         return [
             'id' => $id,
             'title' => $title,
-            'target' => '#' . $modalName . '_' . $id,
+            'dataTarget' => '#' . $modalName . '_' . $id,
             'route' => $route . '/' . serialize($id),
             'icon' => $icon,
             'dataToggle' => 'modal',
@@ -109,9 +118,9 @@ class Controller extends BaseController
      * @param string $route
      * @return array
      */
-    protected function getIconEdit(string $id, string $route)
+    protected function getIconEdit(string $id, string $route, string $title)
     {
-        return $this->getIconNewPage($id, $route, 'edit', 'text-info fa-regular fa-pen-to-square');
+        return $this->getIconNewPage($id, $route, 'edit', 'text-info fa-regular fa-pen-to-square', null, $title);
     }
 
     /**
