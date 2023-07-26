@@ -25,13 +25,13 @@
                 </tr>
 
                 @foreach ($arrayModal as $modal)
-                    @if (!empty($modal['dataToggle']))
+                    @if (!empty($modal['dataTarget']))
                         @include(
                             'components.modal_confirm',
                             [
                                 'userId' => $modal['id'],
                                 'title' => $modal['title'],
-                                'idModal' => substr($modal['target'], 1),
+                                'idModal' => substr($modal['dataTarget'], 1),
                                 'route' => $modal['route'],
                                 'method' => $modal['method'],
                                 'message' => $modal['message']
