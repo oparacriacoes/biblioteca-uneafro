@@ -1,34 +1,4 @@
-let type = ['primary', 'info', 'success', 'warning', 'danger'];
-
 let demo = {
-    initPickColor: function() {
-        $('.pick-class-label').click(function() {
-            let new_class = $(this).attr('new-class');
-            let old_class = $('#display-buttons').attr('data-class');
-            let display_div = $('#display-buttons');
-            if (display_div.length) {
-                let display_buttons = display_div.find('.btn');
-                display_buttons.removeClass(old_class);
-                display_buttons.addClass(new_class);
-                display_div.attr('data-class', new_class);
-            }
-        });
-    },
-
-    initDocChart: function() {
-        let chartColor = "#FFFFFF";
-
-        let ctx = document.getElementById('lineChartExample').getContext("2d");
-
-        let gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-        gradientStroke.addColorStop(0, '#80b6f4');
-        gradientStroke.addColorStop(1, chartColor);
-
-        let gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-        gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
-    },
-
     initDashboardPageCharts: function() {
         let chart_data = JSON.parse(document.getElementById("array-number-of-loans").value);
 
