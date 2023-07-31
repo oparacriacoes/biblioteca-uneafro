@@ -36,17 +36,22 @@ class TagController extends Controller
         $books = (new Book())->lstBook(!empty($id) ? $id : null);
 
         $zplCode = '^XA^CI28';
+        $verticalPosition = 20;
         foreach ($books as $book) {
-            $zplCode .= "^ASN,20,10^FO60,20^FDAcervo: " . $book['idBookCopie'] . "^FS";
-            $zplCode .= "^ASN,20,10^FO450,20^FDISBN: " . $book['ISBN'] . "^FS";
+            $zplCode .= "^ASN,20,10^FO60," . $verticalPosition . "^FDAcervo: " . $book['idBookCopie'] . "^FS";
+            $zplCode .= "^ASN,20,10^FO450," . $verticalPosition . "^FDISBN: " . $book['ISBN'] . "^FS";
 
-            $zplCode .= "^ASN,20,10^FO60,60^FDTítulo: " . $book['title'] . "^FS";
+            $zplCode .= "^ASN,20,10^FO60," . ($verticalPosition + 40) . "^FDTítulo: " . $book['title'] . "^FS";
 
-            $zplCode .= "^ASN,20,10^FO60,100^FDAutor: " . $book['author'] . "^FS";
+            $zplCode .= "^ASN,20,10^FO60," . ($verticalPosition + 80) . "^FDAutor: " . $book['author'] . "^FS";
 
-            $zplCode .= "^FO600,130^BQN,2,7^FDHM,N " . $book['idBookCopie'] . "^FS";
+            $zplCode .= "^BY3,2,120";
+            $zplCode .= "^FO100," . ($verticalPosition + 150) . "^BC^FD" . $book['idBookCopie'] . "^FS";
 
-            $zplCode .= "^FO50,300^GB700,3,3^FS";
+            $zplCode .= "^FO600," . ($verticalPosition + 10) . "^BQN,2,7^FDHM,N" . $book['idBookCopie'] . "^FS";
+
+            $zplCode .= "^FO50," . ($verticalPosition + 330) . "^GB700,3,3^FS";
+            $verticalPosition += 385;
         }
         $zplCode .= "^XZ";
 
