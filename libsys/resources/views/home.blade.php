@@ -1,6 +1,6 @@
 @extends('layouts.app', ['pageSlug' => 'home'])
 
-@if (empty(auth()))
+@if (empty(auth()->user()->id))
     @section('content')
         <div class="header py-7 py-lg-8">
             <div class="container">
