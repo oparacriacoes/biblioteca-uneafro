@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <table class="table tablesorter">
-        <thead class="text-primary">
+        <thead>
             <tr>
                 @foreach ($arrayHeader as $header)
                     <th class="text-center">{{ $header }}</th>
