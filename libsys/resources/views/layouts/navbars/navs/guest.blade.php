@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link text-primary">
+                    <a href="{{ route('home') }}" class="nav-link">
                         <i class="fa-solid fa-mobile-screen"></i>&nbsp;Página Inicial
                     </a>
                 </li>
