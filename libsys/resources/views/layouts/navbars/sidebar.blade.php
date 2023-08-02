@@ -26,12 +26,6 @@
                 </a>
                 <div class="{{ $loan == 'true' ? 'collapse show' : 'collapse' }}" id="loan">
                     <ul class="nav pl-4">
-                        <li @if ($pageSlug == 'loan_config') class="active" @endif>
-                            <a href="{{ route('loan_term.create') }}">
-                                <i class="fa-solid fa-gear"></i>
-                                <p>Configurações</p>
-                            </a>
-                        </li>
                         <li @if ($pageSlug == 'loan_control') class="active" @endif>
                             <a href="{{ route('loan.index') }}">
                                 <i class="fa-solid fa-book-open-reader"></i>
@@ -42,6 +36,12 @@
                             <a href="{{ route('loan.create') }}">
                                 <i class="fa-regular fa-handshake"></i>
                                 <p>Realizar Empréstimo</p>
+                            </a>
+                        </li>
+                        <li @if ($pageSlug == 'loan_config') class="active" @endif>
+                            <a href="{{ route('loan_term.create') }}">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Configurações</p>
                             </a>
                         </li>
                     </ul>
