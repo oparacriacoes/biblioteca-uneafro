@@ -218,7 +218,7 @@ class BookController extends Controller
                     serialize($book['idBookCopie']),
                     'generateTag',
                     '',
-                    'fa fa-file-pdf',
+                    'text-secondary fa fa-file-pdf',
                     '_blank',
                     'Gerar etiqueta'
                 )

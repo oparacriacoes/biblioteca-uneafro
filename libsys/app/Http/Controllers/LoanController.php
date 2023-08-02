@@ -216,7 +216,7 @@ class LoanController extends Controller
             'loan',
             'Renovar Empréstimo',
             'Você realmente deseja renovar este empréstimo?',
-            'fa-solid fa-rotate',
+            'text-secondary fa-solid fa-rotate',
             'put'
         );
     }
@@ -235,7 +235,7 @@ class LoanController extends Controller
             'loan_return',
             'Encerrar Empréstimo',
             'Você realmente deseja encerrar este empréstimo?',
-            'fa-solid fa-rotate-left',
+            'text-secondary fa-solid fa-rotate-left',
             'put'
         );
     }
