@@ -8,13 +8,12 @@
         <form class="form" method="post" action="{{ route('login') }}">
             @csrf
 
-            <div class="card card-login card-white">
+            <div class="card card-login">
                 <div class="card-header">
-                    <img src="{{ asset('black') }}/img/card-primary.png" alt="">
-                    <h1 class="card-title">Entrar</h1>
+                    <h1 class="card-title text-center text-info">Entrar</h1>
                 </div>
                 <div class="card-body">
-                    <p class="text-dark mb-2">Digite seu email e a senha para entrar.</p>
+                    <p>Digite seu email e a senha para entrar.</p>
                     @include(
                             'components.input',
                             [
@@ -36,7 +35,7 @@
                         )
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Confirmar</button>
+                    <button type="submit" class="btn btn-info btn-lg btn-block mb-3">Confirmar</button>
                 </div>
             </div>
         </form>
