@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table class="table tablesorter">
+<div>
+    <table class="table bordered">
         <thead>
             <tr>
                 @foreach ($arrayHeader as $header)
