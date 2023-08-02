@@ -14,7 +14,7 @@
         </ul>
         <div class="copyright">
             &copy; {{ now()->year }} Desenvolvido por
-            <a href="https://www.linkedin.com/in/lucasmmcota/" target="_blank">Lucas Monteiro</a>
+            <a href="https://www.linkedin.com/in/lucasmmcota/" target="_blank" class="text-info">Lucas Monteiro</a>
         </div>
     </div>
 </footer>
