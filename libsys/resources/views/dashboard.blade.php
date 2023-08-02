@@ -9,7 +9,7 @@
                         <div class="col-sm-6 text-left">
                             <h5 class="card-category">Total de Empréstimos</h5>
                             <h2 class="card-title">
-                                <i class="fa-solid fa-book text-primary"></i>
+                                <i class="fa-solid fa-book text-secondary"></i>
                                 {{ $totalLoans }}
                             </h2>
                         </div>
