@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
-                        <div class="col-lg-8 col-md-6">
+                        <div class="col-lg-8 col-sm-6">
                             <h1 class="text-white">Seja bem-vindo(a) ao Libsys!</h1>
                             <p class="text-lead text-light">
                                 O Libsys é um sistema de gerenciamento de bibliotecas simples e eficiente.
