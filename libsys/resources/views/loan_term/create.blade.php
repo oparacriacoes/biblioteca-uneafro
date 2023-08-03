@@ -1,13 +1,13 @@
-@extends('layouts.app', ['page' => __('Configurações de Empréstimo'), 'pageSlug' => 'loan_config'])
+@extends('layouts.app', ['page' => __('Configurações'), 'pageSlug' => 'loan_config'])
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         @include('components.alerts.success', ['key' => 'success'])
         <div class="card ">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-sm-8">
                         <h4 class="card-title">Configurações de Empréstimo</h4>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                 <form class="form" method="post" action="{{ route('loan_term.store') }}">
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-sm-4">
                             @include(
                                 'components.input',
                                 [
@@ -29,7 +29,7 @@
                                 ]
                             )
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-4">
                             @include(
                                 'components.input',
                                 [
@@ -42,7 +42,7 @@
                                 ]
                             )
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-4">
                             @include(
                                 'components.input',
                                 [

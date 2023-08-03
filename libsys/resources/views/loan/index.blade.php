@@ -1,13 +1,13 @@
-@extends('layouts.app', ['page' => __('Controle de Empréstimos'), 'pageSlug' => 'loan_control'])
+@extends('layouts.app', ['page' => __('Controle'), 'pageSlug' => 'loan_control'])
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         @include('components.alerts.success', ['key' => 'success', 'alert' => 'alert'])
         <div class="card ">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-sm-8">
                         <h4 class="card-title">Controle de Empréstimos</h4>
                     </div>
                 </div>

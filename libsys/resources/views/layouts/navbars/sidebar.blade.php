@@ -29,7 +29,7 @@
                         <li @if ($pageSlug == 'loan_control') class="active" @endif>
                             <a href="{{ route('loan.index') }}">
                                 <i class="fa-solid fa-book-open-reader"></i>
-                                <p>Controle de Empréstimos</p>
+                                <p>Controle</p>
                             </a>
                         </li>
                         <li @if ($pageSlug == 'make_loan') class="active" @endif>
