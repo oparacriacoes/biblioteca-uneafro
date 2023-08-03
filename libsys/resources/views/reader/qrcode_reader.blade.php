@@ -19,7 +19,7 @@
                 document.getElementById('divLerQrCode').style.display = "none";
             });
             isScannerVisible = true;
-            document.getElementById("divLerQrCode").style = "margin-left: 180px; display: block;"
+            document.getElementById("divLerQrCode").style = "display: block;"
             Instascan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length == 1) {
                     scanner.start(cameras[0]);
@@ -31,7 +31,7 @@
             }).catch(function (e) {
                 console.error(e);
                 alert("Dispositivo não possui câmera.");
-                document.getElementById("divLerQrCode").style = "margin-left: 180px; display: block;"
+                document.getElementById("divLerQrCode").style = "display: block;"
             });
         }
     }
