@@ -15,14 +15,11 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navigation">
-            
+        <div class="text-right collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <div>
-                            <i class="fa-regular fa-circle-user"></i>
-                        </div>
+                        <i class="fa-regular fa-circle-user"></i>
                         <b class="caret d-none d-lg-block d-xl-block"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-navbar">
