@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         @include('components.alerts.success', ['key' => 'success'])
         <div class="card">
             <div class="card-header">
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-sm-6">
         @include('components.alerts.success', ['key' => 'password_status'])
         <div class="card">
             <div class="card-header">

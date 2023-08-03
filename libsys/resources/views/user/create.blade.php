@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-5 text-left">
+                    <div class="col-sm-2">
                         <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary">Voltar</a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-sm-8 text-center">
                         <h4 class="card-title">Adicionar Usuário</h4>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [
@@ -31,7 +31,7 @@
                                     ]
                                 )
                             </div>
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [
@@ -57,7 +57,7 @@
                                     ]
                                 )
                             </div>
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [
@@ -84,7 +84,7 @@
                                     ]
                                 )
                             </div>
-                            <div class="col-6 text-left">
+                            <div class="col-sm-6 text-left">
                                 @include(
                                     'components.input',
                                     [

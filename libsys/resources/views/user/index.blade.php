@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         @include('components.alerts.success', ['key' => 'success'])
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-sm-4">
                         <h4 class="card-title">Controle de Usuários</h4>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         @include(
                             'components.input',
                             [
@@ -22,7 +22,7 @@
                             ]
                         )
                     </div>
-                    <div class="col-md-3 text-right">
+                    <div class="col-sm-3 text-right">
                         <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Adicionar Usuário</a>
                     </div>
                 </div>
