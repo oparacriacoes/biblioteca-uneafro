@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         @include('components.alerts.success', ['key' => 'success', 'alert' => 'alert'])
         <div class="card ">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <h4 class="card-title">Livros</h4>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
                         @include(
                             'components.input',
                             [
@@ -22,7 +22,7 @@
                             ]
                         )
                     </div>
-                    <div class="col-md-6 text-right">
+                    <div class="col-sm-6 text-right">
                         <a href="{{ route('book.create') }}" class="btn btn-sm btn-primary">Adicionar Livro</a>
                         <a href="#import" data-toggle="modal" class="btn btn-sm btn-primary">Importar Livros</a>
                         <a href="generateTag" target="_blank" title="Gerar todas as etiquetas" class="btn btn-sm btn-primary">Gerar Etiquetas</a>

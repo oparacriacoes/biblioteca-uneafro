@@ -3,7 +3,7 @@
 </div>
 
 <div class="row">
-    <div class="col-6 text-left">
+    <div class="col-sm-6 text-left">
         @include(
             'components.input',
             [
@@ -14,7 +14,7 @@
             ]
         )
     </div>
-    <div class="col-6 text-left">
+    <div class="col-sm-6 text-left">
         @include(
             'components.input',
             [

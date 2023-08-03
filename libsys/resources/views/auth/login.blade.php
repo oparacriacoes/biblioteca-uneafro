@@ -1,10 +1,10 @@
 @extends('layouts.app', ['class' => 'login-page', 'page' => __('Entrar'), 'contentClass' => 'login-page'])
 
 @section('content')
-    <div class="col-md-10 text-center ml-auto mr-auto">
+    <div class="col-sm-10 text-center ml-auto mr-auto">
         <h3 class="mb-5">Faça o login para acessar o sistema de gerenciamento da biblioteca.</h3>
     </div>
-    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+    <div class="col-lg-4 col-sm-6 ml-auto mr-auto">
         <form class="form" method="post" action="{{ route('login') }}">
             @csrf
 
