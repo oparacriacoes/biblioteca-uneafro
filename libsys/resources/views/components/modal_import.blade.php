@@ -5,6 +5,9 @@
                 <h5 class="modal-title mx-auto" id="myModalLabel" style="color:white; font-size: 24px;">
                     {{ $title }}
                 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form class="form" id="import-form" method="post" action="{{ $route }}" enctype="multipart/form-data">
                 @csrf
