@@ -120,7 +120,7 @@ class Controller extends BaseController
      */
     protected function getIconEdit(string $id, string $route, string $title)
     {
-        return $this->getIconNewPage($id, $route, 'edit', 'text-secondary fa-regular fa-pen-to-square', null, $title);
+        return $this->getIconNewPage($id, $route, 'edit', 'fa-regular fa-pen-to-square', null, $title);
     }
 
     /**
@@ -141,7 +141,7 @@ class Controller extends BaseController
             $route,
             $title,
             $message,
-            'text-secondary fa-solid fa-trash-can',
+            'fa-solid fa-trash-can',
             'delete'
         );
     }
