@@ -40,8 +40,8 @@
                     @include(
                         'components.input',
                         [
-                            'label' => 'Email',
-                            'placeholder' => 'Email',
+                            'label' => 'E-mail',
+                            'placeholder' => 'E-mail',
                             'name' => 'email',
                             'oldValue' => auth()->user()->email,
                             'maxLength' => 50,

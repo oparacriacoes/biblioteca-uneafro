@@ -13,11 +13,11 @@
                     <h1 class="card-title text-center text-info">Entrar</h1>
                 </div>
                 <div class="card-body">
-                    <p>Digite seu email e a senha para entrar.</p>
+                    <p>Digite seu e-mail e a senha para entrar.</p>
                     @include(
                             'components.input',
                             [
-                                'placeholder' => 'Email',
+                                'placeholder' => 'E-mail',
                                 'name' => 'email',
                                 'maxLength' => 50,
                                 'icon' => 'fa-regular fa-envelope'

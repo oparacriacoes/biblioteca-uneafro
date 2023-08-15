@@ -171,7 +171,7 @@ return [
     'attributes' => [
         'name' => 'Nome',
         'last_name' => 'Sobrenome',
-        'email' => 'Email',
+        'email' => 'E-mail',
         'cpf' => 'CPF',
         'password' => 'Senha',
         'password_confirmation' => 'Confirmar Senha',

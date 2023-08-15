@@ -16,9 +16,9 @@ function validateInputs(values) {
     }
   
     if (!validatedEmail) {
-        errors.push('Email inválido ou já está em uso;');
+        errors.push('E-mail inválido ou já está em uso;');
     } else if (values[5].includes(values[2])) {
-        errors.push('Email já foi informado na importação;');
+        errors.push('E-mail já foi informado na importação;');
     }
   
     if (!validatedPhone) {

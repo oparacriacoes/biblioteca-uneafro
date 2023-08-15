@@ -189,7 +189,7 @@ class MemberController extends Controller
      */
     private function getArrayHeader()
     {
-        return ['Nome', 'Tipo', 'Email', 'Telefone', 'CPF', 'Editar', 'Excluir'];
+        return ['Nome', 'Tipo', 'E-mail', 'Telefone', 'CPF', 'Editar', 'Excluir'];
     }
 
     /**

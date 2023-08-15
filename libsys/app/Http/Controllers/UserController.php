@@ -139,7 +139,7 @@ class UserController extends Controller
      */
     private function getArrayHeader()
     {
-        return ['Usuário', 'Email', 'CPF', 'Excluir'];
+        return ['Usuário', 'E-mail', 'CPF', 'Excluir'];
     }
 
     /**
