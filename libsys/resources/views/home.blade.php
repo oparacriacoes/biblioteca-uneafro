@@ -7,9 +7,9 @@
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-sm-6">
-                            <h1 class="text-white">Seja bem-vindo(a) ao Libsys!</h1>
+                            <h1 class="text-white">Seja bem-vindo(a) ao SGBib!</h1>
                             <p class="text-lead text-light">
-                                O Libsys é um sistema de gerenciamento de bibliotecas simples e eficiente.
+                                O SGBib é um sistema de gerenciamento de bibliotecas simples e eficiente.
                             </p>
                             <p class="text-lead text-light">
                                 Faça o login no sistema para conseguir realizar empréstimos e devoluções. Além disso,
