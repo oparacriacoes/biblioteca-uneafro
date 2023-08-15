@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()->where('id', '!=', 1)->orderBy('name')->orderBy('last_name')->get()->toArray();
+        $users = User::query()->orderBy('name')->orderBy('last_name')->get()->toArray();
         
         $arrayHeader = $this->getArrayHeader();
         $arrayData = $this->getArrayData($users);
