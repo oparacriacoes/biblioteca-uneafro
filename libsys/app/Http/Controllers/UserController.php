@@ -108,10 +108,18 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail(unserialize($id));
-        $user->delete();
+        $idUser = unserialize($id);
 
-        return redirect()->route('user.index')->with('success', 'Usuário excluído com sucesso!');
+        if ($idUser != auth()->id()) {
+            $user = User::findOrFail($idUser);
+            $user->delete();
+    
+            return redirect()->route('user.index')->with('success', 'Usuário excluído com sucesso!');
+        }
+
+        return redirect()->route('user.index')->with([
+            'success' => 'Não é possível excluir este usuário.', 'alert' => 'alert-warning'
+        ]);
     }
 
     /**
