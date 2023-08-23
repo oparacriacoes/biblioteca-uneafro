@@ -33,7 +33,7 @@ class MemberRequest extends FormRequest
             'email' => ['nullable', 'string', 'email', 'max:50', 'unique:user,email',
                 Rule::unique((new Member())->getTable())->ignore($id)],
             'phone' => ['nullable', 'integer', Rule::unique((new Member())->getTable())->ignore($id)],
-            'cpf' => ['nullable', 'integer', 'digits:11', 'unique:user,cpf',
+            'cpf' => ['nullable', 'digits:11', 'unique:user,cpf',
                 Rule::unique((new Member())->getTable())->ignore($id)]
         ];
     }

@@ -30,7 +30,7 @@ class ProfileRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:member,email',
                 Rule::unique((new User())->getTable())->ignore(auth()->id())],
-            'cpf' => ['required', 'integer', 'digits:11', 'unique:member,cpf',
+            'cpf' => ['required', 'digits:11', 'unique:member,cpf',
                 Rule::unique((new User())->getTable())->ignore(auth()->id())]
         ];
     }
