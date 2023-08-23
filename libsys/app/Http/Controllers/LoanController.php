@@ -173,7 +173,7 @@ class LoanController extends Controller
             'Data de Empréstimo',
             'Data de Devolução',
             'Renovar',
-            'Devolver'
+            'Encerrar'
         ];
     }
 
