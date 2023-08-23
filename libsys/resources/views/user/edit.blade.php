@@ -62,7 +62,7 @@
                     )
                 </div>
                 <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn btn-fill btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-round btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -116,7 +116,7 @@
                     )
                 </div>
                 <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn btn-fill btn-primary">Alterar Senha</button>
+                    <button type="submit" class="btn btn-round btn-primary">Alterar Senha</button>
                 </div>
             </form>
         </div>
