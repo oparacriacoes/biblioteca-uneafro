@@ -29,10 +29,10 @@ class Controller extends BaseController
     /**
      * Method to format cpf number
      * @access protected
-     * @param int $cpf
+     * @param string $cpf
      * @return string
      */
-    protected function formatCpf(int $cpf)
+    protected function formatCpf(string $cpf)
     {
         return substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9);
     }
