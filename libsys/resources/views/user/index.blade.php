@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-        @include('components.alerts.success', ['key' => 'success'])
+        @include('components.alerts.success', ['key' => 'success', 'alert' => 'alert'])
         <div class="card">
             <div class="card-header">
                 <div class="row">
