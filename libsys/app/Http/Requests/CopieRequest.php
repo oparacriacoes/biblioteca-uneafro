@@ -35,15 +35,26 @@ class CopieRequest extends FormRequest
             'volume' => ['required', 'integer'],
             'year' => ['required', 'integer'],
             'copies' => ['nullable', 'integer', 'min:1'],
-            'reference_books' => ['nullable', 'integer', 'min:0',
+            'reference_books' => [
+                'nullable',
+                'integer',
+                'min:0',
                 function ($attribute, $value, $fail) {
                     $numberOfCopies = $this->input('copies');
                     if ($value > $numberOfCopies) {
-                        $fail('O número de livros de referência deve ser menor que o número de cópias.');
+                        $fail('O campo Quantidade de Referência deve ser menor que o campo Quantidade de Cópias.');
+                    }
+                }
+            ],
+            'ISBN' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (strlen(strval($value)) != 10 && strlen(strval($value)) != 13) {
+                        $fail('O campo ' . $attribute . ' deve possuir 10 ou 13 dígitos.');
                     }
                 },
-            ],
-            'ISBN' => ['required', 'integer', 'min_digits:10', Rule::unique((new Book())->getTable())->ignore($id)]
+                Rule::unique((new Book())->getTable())->ignore($id)
+            ]
         ];
     }
 }

@@ -31,15 +31,26 @@ class BookRequest extends FormRequest
             'volume' => ['required', 'integer'],
             'year' => ['required', 'integer'],
             'number_of_copies' => ['required', 'integer', 'min:1'],
-            'number_of_reference_book' => ['required', 'integer', 'min:0',
+            'number_of_reference_book' => [
+                'required',
+                'integer',
+                'min:0',
                 function ($attribute, $value, $fail) {
                     $numberOfCopies = $this->input('number_of_copies');
                     if ($value > $numberOfCopies) {
-                        $fail('O número de livros de referência deve ser menor que o número de cópias.');
+                        $fail('O campo Número de Livros de Referência deve ser menor que o campo Número de Cópias.');
+                    }
+                }
+            ],
+            'ISBN' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (strlen(strval($value)) != 10 && strlen(strval($value)) != 13) {
+                        $fail('O campo ' . $attribute . ' deve possuir 10 ou 13 dígitos.');
                     }
                 },
-            ],
-            'ISBN' => ['required', 'integer', 'min_digits:10', 'unique:book']
+                'unique:book'
+            ]
         ];
     }
 }
