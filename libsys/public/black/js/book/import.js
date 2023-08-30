@@ -43,8 +43,8 @@ function validateInputs(values) {
         errors.push('Número de livros de referência inválido;');
     }
 
-    if (values[7] >= values[6]) {
-        errors.push('Número cópias deve ser maior ou igual ao número de livros de referência;');
+    if (values[7] > values[6]) {
+        errors.push('Número de cópias deve ser maior ou igual ao número de livros de referência;');
     }
   
     if (!validatedIsbn) {
